@@ -1,13 +1,27 @@
 import { FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa';
 
-const quickLinks = ['Home', 'About', 'Admissions', 'Campus Life', 'Contact'];
-const academics = ['Engineering', 'Management', 'Sciences', 'Arts & Humanities', 'Law', 'Research'];
+const quickLinks = [
+  { label: 'Home', ref: '#hero' },
+  { label: 'About', ref: '#about' },
+  { label: 'Admissions', ref: '#cta' },
+  { label: 'Campus Life', ref: '#campus-life' },
+  { label: 'Contact', ref: '#footer' },
+];
+
+const academics = [
+  { label: 'Engineering', ref: '#programs' },
+  { label: 'Management', ref: '#programs' },
+  { label: 'Sciences', ref: '#programs' },
+  { label: 'Arts & Humanities', ref: '#programs' },
+  { label: 'Law', ref: '#programs' },
+  { label: 'Research', ref: '#programs' },
+];
 
 const socials = [
-  { icon: FaLinkedin, label: 'LinkedIn' },
-  { icon: FaInstagram, label: 'Instagram' },
-  { icon: FaTwitter, label: 'Twitter' },
-  { icon: FaYoutube, label: 'YouTube' },
+  { icon: FaLinkedin, label: 'LinkedIn', ref: 'https://linkedin.com' },
+  { icon: FaInstagram, label: 'Instagram', ref: 'https://instagram.com' },
+  { icon: FaTwitter, label: 'Twitter', ref: 'https://twitter.com' },
+  { icon: FaYoutube, label: 'YouTube', ref: 'https://youtube.com' },
 ];
 
 export default function Footer() {
@@ -24,14 +38,19 @@ export default function Footer() {
           </div>
           <p className="text-white/50 text-sm mb-6">Shaping leaders since 1987</p>
           <div className="flex gap-3">
-            {socials.map(({ icon: Icon, label }) => (
+            {socials.map(({ icon: Icon, label, ref }) => (
               <a
                 key={label}
-                href="#"
+                href={ref}
                 aria-label={label}
-                className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-[#C9A84C] hover:border-[#C9A84C] transition-colors duration-300"
-              >
+                rel="noopener noreferrer"
+                target="_blank"
+                className="w-9 h-9 rounded-full border border-white/20 
+                flex items-center justify-center text-white/50 
+                hover:text-[#C9A84C] hover:border-[#C9A84C] 
+                transition-colors duration-300" >
                 <Icon size={16} />
+                {label}
               </a>
             ))}
           </div>
@@ -41,10 +60,10 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Quick Links</h4>
           <ul className="space-y-1">
-            {quickLinks.map((link) => (
-              <li key={link}>
-                <a href="#" className="text-white/60 hover:text-[#C9A84C] text-sm transition-colors duration-200 leading-8 block">
-                  {link}
+            {quickLinks.map(({label, ref}) => (
+              <li key={label}>
+                <a href={ref} className="text-white/60 hover:text-[#C9A84C] text-sm transition-colors duration-200 leading-8 block">
+                  {label}
                 </a>
               </li>
             ))}
@@ -55,10 +74,10 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Academics</h4>
           <ul className="space-y-1">
-            {academics.map((item) => (
-              <li key={item}>
-                <a href="#" className="text-white/60 hover:text-[#C9A84C] text-sm transition-colors duration-200 leading-8 block">
-                  {item}
+            {academics.map(({label, ref}) => (
+              <li key={label}>
+                <a href={ref} className="text-white/60 hover:text-[#C9A84C] text-sm transition-colors duration-200 leading-8 block">
+                  {label}
                 </a>
               </li>
             ))}

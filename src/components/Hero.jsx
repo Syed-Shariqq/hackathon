@@ -1,5 +1,5 @@
 import { ChevronDown } from 'lucide-react';
-import heroCampus from '../assets/Outdoor.jpeg';
+import heroCampus from '../assets/college.jpeg';
 
 export default function Hero() {
   return (

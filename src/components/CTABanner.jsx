@@ -1,6 +1,6 @@
 export default function CTABanner() {
   return (
-    <section id="cta" className="bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] py-20 px-6 text-center">
+    <section id="cta" className="bg-linear-to-r from-[#C9A84C] to-[#E8C96A] py-20 px-6 text-center">
       <h2 className="text-[#1B1F3B] text-4xl font-black mb-4">Your Journey Starts Here</h2>
       <p className="text-[#1B1F3B]/70 text-lg mb-10">
         Applications open for 2025-26. Limited seats available.
