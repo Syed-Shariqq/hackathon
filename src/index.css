@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+/* Fade-up animation utility */
+.fade-up {
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Bounce animation for hero arrow */
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+.animate-bounce-slow {
+  animation: bounce-slow 1.5s ease-in-out infinite;
+}
