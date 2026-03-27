@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 
 const stats = [
   { number: 25000, suffix: '+', label: 'Students Enrolled' },
-  { number: 1400, suffix: '+', label: 'Expert Faculty' },
-  { number: 200, suffix: '+', label: 'Programs Offered' },
-  { number: 38, suffix: ' Years', label: 'Of Excellence' },
+  { number: 1400,  suffix: '+', label: 'Expert Faculty' },
+  { number: 200,   suffix: '+', label: 'Programs Offered' },
+  { number: 38,    suffix: ' Years', label: 'Of Excellence' },
 ];
 
 function CountUp({ target, suffix, active }) {
@@ -19,21 +19,13 @@ function CountUp({ target, suffix, active }) {
     const increment = target / steps;
     const timer = setInterval(() => {
       current += increment;
-      if (current >= target) {
-        setCount(target);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(current));
-      }
+      if (current >= target) { setCount(target); clearInterval(timer); }
+      else setCount(Math.floor(current));
     }, stepTime);
     return () => clearInterval(timer);
   }, [active, target]);
 
-  return (
-    <span>
-      {count.toLocaleString()}{suffix}
-    </span>
-  );
+  return <span>{count.toLocaleString()}{suffix}</span>;
 }
 
 export default function StatsBar() {
@@ -50,14 +42,17 @@ export default function StatsBar() {
   }, []);
 
   return (
-    <section id="stats" ref={ref} className="bg-[#1B1F3B] py-12">
-      <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 divide-y-2 md:divide-y-0 md:divide-x divide-white/10">
+    <section id="stats" ref={ref} className="relative bg-[#1B1F3B] py-14 overflow-hidden">
+      {/* Subtle gold gradient background sweep */}
+      <div className="absolute inset-0 bg-linear-to-r from-transparent via-[#C9A84C]/5 to-transparent pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 divide-y-2 md:divide-y-0 md:divide-x divide-white/10 relative z-10">
         {stats.map((stat) => (
-          <div key={stat.label} className="flex flex-col items-center text-center py-8 md:py-0 px-4">
-            <p className="text-[#C9A84C] text-4xl font-black">
+          <div key={stat.label} className="flex flex-col items-center text-center py-8 md:py-0 px-4 group">
+            <p className="shimmer-gold text-4xl md:text-5xl font-black mb-1 transition-transform duration-300 group-hover:scale-110">
               <CountUp target={stat.number} suffix={stat.suffix} active={active} />
             </p>
-            <p className="text-white/70 text-sm mt-1 tracking-wide uppercase">{stat.label}</p>
+            <p className="text-white/60 text-xs mt-1 tracking-widest uppercase font-medium">{stat.label}</p>
           </div>
         ))}
       </div>

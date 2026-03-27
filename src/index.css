@@ -1,21 +1,135 @@
 @import "tailwindcss";
 
-/* Fade-up animation utility */
+/* ─────────────────────────────────────────────
+   Fade-up scroll animation
+───────────────────────────────────────────── */
 .fade-up {
   opacity: 0;
   transform: translateY(2rem);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: opacity 0.65s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .fade-up.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Bounce animation for hero arrow */
+/* ─────────────────────────────────────────────
+   Hero bounce arrow
+───────────────────────────────────────────── */
 @keyframes bounce-slow {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(10px); }
+  50%       { transform: translateY(10px); }
 }
-.animate-bounce-slow {
-  animation: bounce-slow 1.5s ease-in-out infinite;
+.animate-bounce-slow { animation: bounce-slow 1.5s ease-in-out infinite; }
+
+/* ─────────────────────────────────────────────
+   Gold shimmer sweep (for stat numbers)
+───────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+.shimmer-gold {
+  background: linear-gradient(
+    90deg,
+    #C9A84C 25%,
+    #f0d080 50%,
+    #C9A84C 75%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ─────────────────────────────────────────────
+   Floating element for hero card
+───────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(-1deg); }
+  50%       { transform: translateY(-12px) rotate(1deg); }
+}
+.animate-float { animation: float 5s ease-in-out infinite; }
+
+/* ─────────────────────────────────────────────
+   Glow pulse on CTA buttons
+───────────────────────────────────────────── */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.5); }
+  50%       { box-shadow: 0 0 24px 8px rgba(201,168,76,0.25); }
+}
+.glow-gold { animation: glow-pulse 2.5s ease-in-out infinite; }
+
+/* ─────────────────────────────────────────────
+   Glassmorphism utility
+───────────────────────────────────────────── */
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ─────────────────────────────────────────────
+   Scroll progress bar
+───────────────────────────────────────────── */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #C9A84C, #E8C96A);
+  z-index: 9999;
+  transition: width 0.1s linear;
+}
+
+/* ─────────────────────────────────────────────
+   Gradient text utility
+───────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #C9A84C 0%, #E8C96A 50%, #C9A84C 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ─────────────────────────────────────────────
+   Card glow on hover
+───────────────────────────────────────────── */
+.card-glow:hover {
+  box-shadow: 0 0 0 2px rgba(201,168,76,0.4), 0 20px 40px rgba(0,0,0,0.12);
+}
+
+/* ─────────────────────────────────────────────
+   Compare tray slide-up
+───────────────────────────────────────────── */
+@keyframes slide-up-tray {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.animate-slide-up { animation: slide-up-tray 0.35s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+
+/* ─────────────────────────────────────────────
+   Modal backdrop fade
+───────────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-fade-in { animation: fade-in 0.25s ease forwards; }
+
+/* ─────────────────────────────────────────────
+   Typing cursor blink
+───────────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.cursor-blink::after {
+  content: '|';
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  color: #C9A84C;
 }

@@ -20,15 +20,15 @@ class ErrorBoundary extends Component {
     return { hasError: true, error };
   }
   componentDidCatch(error, info) {
-    console.error('Error caught:', error, info);
+    console.error('Component error:', error, info);
   }
   render() {
     if (this.state.hasError) {
       return (
-        <div style={{ background: 'darkred', color: 'white', padding: '20px', fontSize: '16px', whiteSpace: 'pre-wrap' }}>
-          <h2>Component Error Caught!</h2>
-          <p>{this.state.error?.message}</p>
-          <p>{this.state.error?.stack}</p>
+        <div style={{ background: '#1B1F3B', color: '#C9A84C', padding: '40px', fontFamily: 'monospace', minHeight: '100vh' }}>
+          <h2 style={{ fontSize: 24, marginBottom: 12 }}>⚠ Component Error</h2>
+          <pre style={{ color: 'white', fontSize: 13, whiteSpace: 'pre-wrap' }}>{this.state.error?.message}</pre>
+          <pre style={{ color: 'rgba(255,255,255,0.5)', fontSize: 11, marginTop: 8 }}>{this.state.error?.stack}</pre>
         </div>
       );
     }
