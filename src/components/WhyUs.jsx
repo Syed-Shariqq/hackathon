@@ -53,8 +53,7 @@ export default function WhyUs() {
             return (
               <div
                 key={card.title}
-                className="fade-up bg-white rounded-2xl p-8 text-center hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
-                style={{ transitionDelay: `${i * 0.1}s` }}
+                className="shadow-md bg-white rounded-2xl p-8 text-center hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
               >
                 <div className="w-14 h-14 mx-auto mb-5 bg-[#C9A84C]/10 rounded-full flex items-center justify-center">
                   <Icon size={26} className="text-[#C9A84C]" />

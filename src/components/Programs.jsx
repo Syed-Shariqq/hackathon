@@ -101,8 +101,7 @@ export default function Programs() {
             return (
               <div
                 key={prog.name}
-                className="fade-up bg-white rounded-2xl shadow-sm p-6 border-l-4 border-transparent hover:border-[#C9A84C] hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-                style={{ transitionDelay: `${0.1 + i * 0.07}s` }}
+                className=" bg-white rounded-2xl shadow-sm p-6 border-l-4 border-transparent hover:border-[#C9A84C] hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
               >
                 <div className="w-12 h-12 rounded-full bg-[#C9A84C]/10 flex items-center justify-center mb-4">
                   <Icon size={22} className="text-[#C9A84C]" />

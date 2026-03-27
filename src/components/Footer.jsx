@@ -1,13 +1,13 @@
-import { Bell} from 'lucide-react';
+import { FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa';
 
 const quickLinks = ['Home', 'About', 'Admissions', 'Campus Life', 'Contact'];
 const academics = ['Engineering', 'Management', 'Sciences', 'Arts & Humanities', 'Law', 'Research'];
 
 const socials = [
-  { icon: Bell, label: 'LinkedIn' },
-  { icon: Bell, label: 'Instagram' },
-  { icon: Bell, label: 'Twitter' },
-  { icon: Bell, label: 'YouTube' },
+  { icon: FaLinkedin, label: 'LinkedIn' },
+  { icon: FaInstagram, label: 'Instagram' },
+  { icon: FaTwitter, label: 'Twitter' },
+  { icon: FaYoutube, label: 'YouTube' },
 ];
 
 export default function Footer() {
