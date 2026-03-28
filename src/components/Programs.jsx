@@ -14,7 +14,7 @@ const HIRING_PARTNERS = [
 ];
 
 const COMPARE_ROWS = [
-  { label: 'Fees / year',    key: 'fees',           icon: DollarSign },
+  { label: 'Fees / year',   key: 'fees',           icon: DollarSign },
   { label: 'Avg. Salary',   key: 'avgSalary',      icon: TrendingUp },
   { label: 'Duration',      key: 'duration',       icon: Clock },
   { label: 'Seats',         key: 'seats',          icon: Users },
@@ -357,7 +357,7 @@ export default function Programs() {
     const els = ref.current?.querySelectorAll('.fade-up');
     els?.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [activeTab]);
 
   const filtered = activeTab === 'All' ? programs : programs.filter((p) => p.category === activeTab);
 
