@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import labStudents from '../assets/lab-students.jpeg';
 import ground from '../assets/ground.jpeg';
 import classroom from '../assets/herocampus.jpeg';
-import outdoor from '../assets/outdoor.jpeg';
+import outdoor from '../assets/Outdoor.jpeg';
 import fest from '../assets/fest.jpeg';
 
 const pills = [
