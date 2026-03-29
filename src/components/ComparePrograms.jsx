@@ -73,3 +73,79 @@ export const PROGRAM_REGISTRY = {
     badge: '🔬 Fully Funded',
   },
 };
+
+/** Back-of-card flip content: placement ring %, pitch lines, hiring logos (Clearbit domain optional) */
+export const PROGRAM_BACK_DETAILS = {
+  'B.Tech Computer Science': {
+    placementPct: 95,
+    pitch: [
+      'Industry-aligned CS with depth in algorithms, AI, and systems at scale.',
+      'Strong internship pipelines into global product and cloud teams.',
+    ],
+    companies: [
+      { name: 'Google', domain: 'google.com', blurb: 'Search, AI, and cloud products' },
+      { name: 'Microsoft', domain: 'microsoft.com', blurb: 'Enterprise software and Azure cloud' },
+      { name: 'Amazon', domain: 'amazon.com', blurb: 'E-commerce and AWS infrastructure' },
+    ],
+  },
+  'MBA Business Analytics': {
+    placementPct: 98,
+    pitch: [
+      'Data-driven leadership with live cases from Fortune 500 partners.',
+      'Capstones in strategy, forecasting, and analytics consulting delivery.',
+    ],
+    companies: [
+      { name: 'Goldman Sachs', domain: 'goldmansachs.com', blurb: 'Investment banking and securities' },
+      { name: 'Deloitte', domain: 'deloitte.com', blurb: 'Management consulting and advisory' },
+      { name: 'McKinsey', domain: 'mckinsey.com', blurb: 'Global strategy consulting' },
+    ],
+  },
+  'B.Sc Biotechnology': {
+    placementPct: 88,
+    pitch: [
+      'Hands-on life sciences with CSIR-linked labs and GMP exposure.',
+      'Paths into pharma R&D, bioinformatics, and public-sector science.',
+    ],
+    companies: [
+      { name: 'Biocon', domain: 'biocon.com', blurb: 'Biopharmaceutical research and manufacturing' },
+      { name: 'ISRO', domain: null, blurb: 'Space biology and life sciences research' },
+      { name: 'Infosys', domain: 'infosys.com', blurb: 'Healthcare IT and bioinformatics' },
+    ],
+  },
+  'BA English Literature': {
+    placementPct: 82,
+    pitch: [
+      'Critical reading, creative writing, and media literacy in one rigorous track.',
+      'Alumni work in publishing, journalism, communications, and research.',
+    ],
+    companies: [
+      { name: 'Times Group', domain: 'timesgroup.com', blurb: 'Journalism, media, and publishing' },
+      { name: 'Deloitte', domain: 'deloitte.com', blurb: 'Communications and content strategy' },
+      { name: 'McKinsey', domain: 'mckinsey.com', blurb: 'Research writing and knowledge' },
+    ],
+  },
+  'LLB Corporate Law': {
+    placementPct: 91,
+    pitch: [
+      'Integrated corporate law with moot courts and in-house legal clinics.',
+      'Prepare for firm roles in banking, compliance, and advisory.',
+    ],
+    companies: [
+      { name: 'Goldman Sachs', domain: 'goldmansachs.com', blurb: 'Legal compliance and regulatory affairs' },
+      { name: 'HDFC', domain: 'hdfcbank.com', blurb: 'Banking law and financial regulation' },
+      { name: 'Deloitte', domain: 'deloitte.com', blurb: 'Legal advisory and risk consulting' },
+    ],
+  },
+  'Ph.D Research Programs': {
+    placementPct: 100,
+    pitch: [
+      'Fully funded research across sciences with dedicated faculty mentors.',
+      'Publish, patent, and place into national labs and global research groups.',
+    ],
+    companies: [
+      { name: 'ISRO', domain: null, blurb: 'Funded doctoral research programs' },
+      { name: 'Biocon', domain: 'biocon.com', blurb: 'Pharmaceutical R&D fellowships' },
+      { name: 'Microsoft', domain: 'microsoft.com', blurb: 'Research internships and grants' },
+    ],
+  },
+};

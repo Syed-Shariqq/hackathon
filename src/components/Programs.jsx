@@ -3,34 +3,123 @@ import {
   BookOpen, BarChart2, FlaskConical, BookText, Scale, Microscope,
   Plus, Check, Star, Clock, Users, X, TrendingUp, DollarSign, Award, GitCompare, Trash2,
 } from 'lucide-react';
-import { PROGRAM_REGISTRY } from './ComparePrograms';
+import { PROGRAM_REGISTRY, PROGRAM_BACK_DETAILS } from './ComparePrograms';
 
 /* ─── Static data ─── */
 const categories = ['All', 'Engineering', 'Management', 'Sciences', 'Arts', 'Law'];
 
-const HIRING_PARTNERS = [
-  'Google', 'Microsoft', 'Amazon', 'Deloitte', 'Goldman Sachs',
-  'ISRO', 'McKinsey', 'Infosys', 'Flipkart', 'HDFC', 'Biocon', 'Times Group',
+const HIRING_LOGOS = [
+  { name: 'Google', domain: 'google.com' },
+  { name: 'Microsoft', domain: 'microsoft.com' },
+  { name: 'Amazon', domain: 'amazon.com' },
+  { name: 'Deloitte', domain: 'deloitte.com' },
+  { name: 'Goldman Sachs', domain: 'goldmansachs.com' },
+  { name: 'McKinsey', domain: 'mckinsey.com' },
+  { name: 'Infosys', domain: 'infosys.com' },
+  { name: 'Flipkart', domain: 'flipkart.com' },
+  { name: 'HDFC Bank', domain: 'hdfcbank.com' },
+  { name: 'Biocon', domain: 'biocon.com' },
+  { name: 'Times Group', domain: 'timesgroup.com' },
+  { name: 'ISRO', isro: true },
 ];
 
+function MarqueeLogoCard({ name, domain, isro }) {
+  const [imgHidden, setImgHidden] = useState(false);
+  if (isro) {
+    return (
+      <div className="flex flex-col items-center justify-center shrink-0 w-[100px] h-[70px] rounded-xl border border-[rgba(201,168,76,0.25)] bg-[rgba(27,31,59,0.04)] backdrop-blur-sm px-2 py-1 transition-all duration-300 hover:scale-[1.08] hover:border-[#C9A84C] hover:shadow-[0_0_16px_rgba(201,168,76,0.35)]">
+        <span className="text-[10px] font-bold text-white bg-[#FF6B00] px-2 py-1 rounded-md leading-none">ISRO</span>
+        <span className="text-[10px] text-gray-500 mt-1.5 text-center leading-tight font-medium">{name}</span>
+      </div>
+    );
+  }
+  return (
+    <div className="flex flex-col items-center justify-center shrink-0 w-[100px] h-[70px] rounded-xl border border-[rgba(201,168,76,0.25)] bg-[rgba(27,31,59,0.04)] backdrop-blur-sm px-2 py-1 transition-all duration-300 hover:scale-[1.08] hover:border-[#C9A84C] hover:shadow-[0_0_16px_rgba(201,168,76,0.35)]">
+      <div className="h-10 flex items-center justify-center w-full">
+        {!imgHidden ? (
+          <img
+            src={`https://logo.clearbit.com/${domain}`}
+            alt=""
+            className="max-h-[40px] max-w-[72px] object-contain"
+            onError={() => setImgHidden(true)}
+          />
+        ) : (
+          <span className="text-[11px] font-black text-[#C9A84C] tracking-tight">{name.replace(/[^A-Z]/gi, '').slice(0, 3) || '—'}</span>
+        )}
+      </div>
+      <span className="text-[10px] text-gray-500 mt-0.5 text-center leading-none font-medium">{name}</span>
+    </div>
+  );
+}
+
+function HiringMarquee() {
+  const track = [...HIRING_LOGOS, ...HIRING_LOGOS];
+  return (
+    <div className="hiring-marquee-wrap relative overflow-hidden py-1 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+      <div className="hiring-marquee-track">
+        {track.map((c, i) => (
+          <MarqueeLogoCard key={`${c.name}-${i}`} {...c} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function BackCompanyRow({ name, domain, blurb }) {
+  const [fail, setFail] = useState(false);
+  const isro = !domain;
+  const initials = name
+    .split(/\s+/)
+    .map((w) => w[0])
+    .join('')
+    .slice(0, 3)
+    .toUpperCase();
+
+  return (
+    <div className="flex gap-2.5 items-start">
+      <div className="w-8 h-8 shrink-0 rounded-lg overflow-hidden flex items-center justify-center bg-[#C9A84C]/10 border border-[#C9A84C]/25">
+        {domain && !fail ? (
+          <img
+            src={`https://logo.clearbit.com/${domain}`}
+            alt=""
+            className="w-7 h-7 object-contain"
+            onError={() => setFail(true)}
+          />
+        ) : (
+          <span
+            className={`text-[8px] font-black w-full h-full flex items-center justify-center ${isro ? 'bg-[#FF6B00] text-white' : 'text-[#C9A84C]'
+              }`}
+          >
+            {initials}
+          </span>
+        )}
+      </div>
+      <div className="min-w-0">
+        <p className="text-white font-bold text-xs leading-tight">{name}</p>
+        <p className="text-white/45 text-[11px] leading-snug">{blurb}</p>
+      </div>
+    </div>
+  );
+}
+
 const COMPARE_ROWS = [
-  { label: 'Fees / year',   key: 'fees',           icon: DollarSign },
-  { label: 'Avg. Salary',   key: 'avgSalary',      icon: TrendingUp },
-  { label: 'Duration',      key: 'duration',       icon: Clock },
-  { label: 'Seats',         key: 'seats',          icon: Users },
-  { label: 'Level',         key: 'level',          icon: Award },
-  { label: 'Outcomes',      key: 'outcomes',       icon: Award },
-  { label: 'Accreditation', key: 'accreditation',  icon: Award },
-  { label: 'Highlight',     key: 'highlight',      icon: Award },
+  { label: 'Fees / year', key: 'fees', icon: DollarSign },
+  { label: 'Avg. Salary', key: 'avgSalary', icon: TrendingUp },
+  { label: 'Duration', key: 'duration', icon: Clock },
+  { label: 'Seats', key: 'seats', icon: Users },
+  { label: 'Level', key: 'level', icon: Award },
+  { label: 'Outcomes', key: 'outcomes', icon: Award },
+  { label: 'Accreditation', key: 'accreditation', icon: Award },
+  { label: 'Highlight', key: 'highlight', icon: Award },
 ];
 
 const programs = [
-  { icon: BookOpen,    name: 'B.Tech Computer Science', duration: '4 Years', description: 'Master algorithms, AI, and systems design',          category: 'Engineering', rating: 4.9 },
-  { icon: BarChart2,   name: 'MBA Business Analytics',  duration: '2 Years', description: 'Data-driven leadership for modern business',         category: 'Management',  rating: 4.8 },
-  { icon: FlaskConical,name: 'B.Sc Biotechnology',      duration: '3 Years', description: 'Explore life sciences and biomedical research',      category: 'Sciences',    rating: 4.6 },
-  { icon: BookText,    name: 'BA English Literature',   duration: '3 Years', description: 'Develop critical thinking through great writing',    category: 'Arts',        rating: 4.4 },
-  { icon: Scale,       name: 'LLB Corporate Law',       duration: '5 Years', description: 'Shape policy and lead legal innovation',             category: 'Law',         rating: 4.7 },
-  { icon: Microscope,  name: 'Ph.D Research Programs',  duration: '3-5 Years', description: 'Push boundaries with funded doctoral research', category: 'Sciences',    rating: 4.9 },
+  { icon: BookOpen, name: 'B.Tech Computer Science', duration: '4 Years', description: 'Master algorithms, AI, and systems design', category: 'Engineering', rating: 4.9 },
+  { icon: BarChart2, name: 'MBA Business Analytics', duration: '2 Years', description: 'Data-driven leadership for modern business', category: 'Management', rating: 4.8 },
+  { icon: FlaskConical, name: 'B.Sc Biotechnology', duration: '3 Years', description: 'Explore life sciences and biomedical research', category: 'Sciences', rating: 4.6 },
+  { icon: BookText, name: 'BA English Literature', duration: '3 Years', description: 'Develop critical thinking through great writing', category: 'Arts', rating: 4.4 },
+  { icon: Scale, name: 'LLB Corporate Law', duration: '5 Years', description: 'Shape policy and lead legal innovation', category: 'Law', rating: 4.7 },
+  { icon: Microscope, name: 'Ph.D Research Programs', duration: '3-5 Years', description: 'Push boundaries with funded doctoral research', category: 'Sciences', rating: 4.9 },
 ];
 
 /* ─── Compare Tray (bottom bar) ─── */
@@ -98,7 +187,7 @@ function CompareTray({ selected, onRemove, onClear, onOpen }) {
 }
 
 /* ─── Comparison Modal ─── */
-function CompareModal({ selected, onClose }) {
+function CompareModal({ selected, onClose, onApplyProgram }) {
   const programs = selected.map((prog) => ({
     ...prog,
     ...(PROGRAM_REGISTRY[prog.name] || {}),
@@ -221,13 +310,16 @@ function CompareModal({ selected, onClose }) {
           {programs.map((p) => (
             <div key={p.name} className="bg-white px-6 py-5 text-center">
               <p className="text-xs text-gray-400 mb-3 font-medium">{p.name}</p>
-              <a
-                href="#cta"
-                onClick={onClose}
-                className="inline-block bg-[#1B1F3B] text-white text-sm font-bold px-6 py-2.5 rounded-full hover:bg-[#C9A84C] hover:text-[#1B1F3B] transition-all duration-200"
+              <button
+                type="button"
+                onClick={() => {
+                  onApplyProgram?.(p.name);
+                  onClose();
+                }}
+                className="inline-block bg-[#1B1F3B] text-white text-sm font-bold px-6 py-2.5 rounded-full hover:bg-[#C9A84C] hover:text-[#1B1F3B] transition-all duration-200 cursor-pointer"
               >
                 Apply Now
-              </a>
+              </button>
             </div>
           ))}
         </div>
@@ -236,106 +328,202 @@ function CompareModal({ selected, onClose }) {
   );
 }
 
-/* ─── Program Card ─── */
-function ProgramCard({ prog, isSelected, onCompare, canAdd }) {
+/* ─── Program Card (3D flip + tilt) ─── */
+function ProgramCard({ prog, isSelected, onCompare, canAdd, onApply }) {
   const [hovered, setHovered] = useState(false);
+  const [flipped, setFlipped] = useState(false);
+  const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
+  const [tiltEase, setTiltEase] = useState(true);
+  const wrapRef = useRef(null);
   const Icon = prog.icon;
   const data = PROGRAM_REGISTRY[prog.name];
+  const back = PROGRAM_BACK_DETAILS[prog.name];
+  const noHoverTilt = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
+
+  const handleMove = (e) => {
+    if (flipped || noHoverTilt || !wrapRef.current) return;
+    setTiltEase(false);
+    const r = wrapRef.current.getBoundingClientRect();
+    const x = e.clientX - r.left;
+    const y = e.clientY - r.top;
+    const ry = ((x / r.width) - 0.5) * 12;
+    const rx = -((y / r.height) - 0.5) * 12;
+    setTilt({ rx, ry });
+  };
+
+  const handleLeave = () => {
+    if (flipped || noHoverTilt) return;
+    setTiltEase(true);
+    setTilt({ rx: 0, ry: 0 });
+  };
+
+  const durClass = flipped ? 'duration-700 ease-in-out' : tiltEase ? 'duration-500 ease-out' : 'duration-0';
+  const innerTransform = flipped ? 'rotateY(180deg)' : `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`;
+  const pct = back?.placementPct ?? 90;
 
   return (
     <div
-      className={`relative bg-white rounded-2xl shadow-sm overflow-hidden transition-all duration-300 card-glow
-        ${isSelected ? 'ring-2 ring-[#C9A84C] shadow-[0_0_0_6px_rgba(201,168,76,0.10)]' : ''}
-        ${data?.badge ? 'border-t-4 border-[#C9A84C]' : 'border border-gray-100'}
-        hover:-translate-y-1.5 hover:shadow-xl`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      className={`rounded-2xl transition-all duration-300 ${isSelected
+          ? 'ring-2 ring-[#C9A84C]'
+          : ''
+        }`}
     >
-      {/* Badge */}
-      {data?.badge && (
-        <div className="absolute top-3 right-3 bg-[#1B1F3B] text-[#C9A84C] text-xs font-bold px-2.5 py-1 rounded-full z-10">
-          {data.badge}
-        </div>
-      )}
-
-      <div className="p-6">
-        {/* Icon + Rating */}
-        <div className="flex items-start justify-between mb-4">
-          <div className="w-12 h-12 rounded-xl bg-[#C9A84C]/10 flex items-center justify-center">
-            <Icon size={22} className="text-[#C9A84C]" />
-          </div>
-          <div className="flex items-center gap-1 text-xs text-amber-500 font-bold">
-            <Star size={11} fill="currentColor" />
-            {prog.rating}
-          </div>
-        </div>
-
-        <h3 className="font-bold text-[#1B1F3B] text-base mb-1">{prog.name}</h3>
-        <p className="text-xs text-gray-400 mb-2 flex items-center gap-1.5">
-          <Clock size={11} />
-          {prog.duration}
-          {data && (
-            <>
-              <span className="mx-0.5">·</span>
-              <Users size={11} />
-              {data.seats} seats
-            </>
-          )}
-        </p>
-        <p className="text-sm text-gray-500 mb-4 leading-relaxed">{prog.description}</p>
-
-        {/* Salary / Outcomes / Fees mini-bar */}
-        {data && (
-          <div className="flex gap-2 mb-4 p-3 bg-[#F9F9FB] rounded-xl">
-            <div className="text-center flex-1">
-              <p className="text-[#C9A84C] font-black text-sm leading-tight">{data.avgSalary}</p>
-              <p className="text-gray-400 text-xs mt-0.5">Avg. Salary</p>
-            </div>
-            <div className="w-px bg-gray-200" />
-            <div className="text-center flex-1">
-              <p className="text-[#C9A84C] font-black text-sm leading-tight">{data.outcomes}</p>
-              <p className="text-gray-400 text-xs mt-0.5">Outcomes</p>
-            </div>
-            <div className="w-px bg-gray-200" />
-            <div className="text-center flex-1">
-              <p className="text-[#C9A84C] font-black text-sm leading-tight">{data.fees}</p>
-              <p className="text-gray-400 text-xs mt-0.5">Fees/yr</p>
-            </div>
-          </div>
-        )}
-
-        {/* Hover: top recruiters */}
-        <div
-          className={`overflow-hidden transition-all duration-300 ${hovered && data?.topRecruiters ? 'max-h-24 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'}`}
-        >
-          <p className="text-xs text-gray-400 mb-2 font-medium">Top Recruiters</p>
-          <div className="flex flex-wrap gap-1.5">
-            {data?.topRecruiters?.map((r) => (
-              <span key={r} className="text-xs bg-[#1B1F3B]/5 text-[#1B1F3B] px-2.5 py-1 rounded-full font-medium">
-                {r}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Footer: Apply + Compare */}
-        <div className="flex items-center justify-between pt-3 border-t border-gray-100">
-          <a href="#cta" className="text-[#C9A84C] font-semibold text-sm hover:underline underline-offset-4">
-            Apply Now →
-          </a>
-          <button
-            onClick={(e) => { e.stopPropagation(); onCompare(prog); }}
-            disabled={!isSelected && !canAdd}
-            className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full transition-all duration-200
-              ${isSelected
-                ? 'bg-[#C9A84C] text-[#1B1F3B]'
-                : canAdd
-                  ? 'border border-gray-300 text-gray-500 hover:border-[#C9A84C] hover:text-[#C9A84C] cursor-pointer'
-                  : 'border border-gray-200 text-gray-300 cursor-not-allowed'
+      <div
+        ref={wrapRef}
+        className="relative rounded-2xl [perspective:1200px]"
+        onMouseMove={handleMove}
+        onMouseLeave={handleLeave}
+      >
+        <div className={`relative preserve-3d min-h-[520px] transition-transform ${durClass}`} style={{ transform: innerTransform }}>
+          {/* Front */}
+          <div
+            className={`backface-hidden relative min-h-[520px] bg-white rounded-2xl shadow-sm overflow-hidden border ${data?.badge ? 'border-t-4 border-[#C9A84C]' : 'border-gray-100'
               }`}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
           >
-            {isSelected ? <><Check size={11} /> Added</> : <><Plus size={11} /> Compare</>}
-          </button>
+            {data?.badge && (
+              <div className="absolute top-3 right-3 bg-[#1B1F3B] text-[#C9A84C] text-xs font-bold px-2.5 py-1 rounded-full z-10">
+                {data.badge}
+              </div>
+            )}
+
+            <div className="p-6 flex flex-col min-h-[520px]">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 rounded-xl bg-[#C9A84C]/10 flex items-center justify-center">
+                  <Icon size={22} className="text-[#C9A84C]" />
+                </div>
+
+                <div className="flex items-center gap-1 text-xs text-amber-500 font-bold">
+                  <Star size={11} fill="currentColor" />
+                  <span>{prog.rating}</span>
+                </div>
+              </div>
+
+              <h3 className="font-bold text-[#1B1F3B] text-base mb-1">{prog.name}</h3>
+              <p className="text-xs text-gray-400 mb-2 flex items-center gap-1.5">
+                <Clock size={11} />
+                {prog.duration}
+                {data && (
+                  <>
+                    <span className="mx-0.5">·</span>
+                    <Users size={11} />
+                    {data.seats} seats
+                  </>
+                )}
+              </p>
+              <p className="text-sm text-gray-500 mb-4 leading-relaxed">{prog.description}</p>
+
+              {data && (
+                <div className="flex gap-2 mb-4 p-3 bg-[#F9F9FB] rounded-xl">
+                  <div className="text-center flex-1">
+                    <p className="text-[#C9A84C] font-black text-sm leading-tight">{data.avgSalary}</p>
+                    <p className="text-gray-400 text-xs mt-0.5">Avg. Salary</p>
+                  </div>
+                  <div className="w-px bg-gray-200" />
+                  <div className="text-center flex-1">
+                    <p className="text-[#C9A84C] font-black text-sm leading-tight">{data.outcomes}</p>
+                    <p className="text-gray-400 text-xs mt-0.5">Outcomes</p>
+                  </div>
+                  <div className="w-px bg-gray-200" />
+                  <div className="text-center flex-1">
+                    <p className="text-[#C9A84C] font-black text-sm leading-tight">{data.fees}</p>
+                    <p className="text-gray-400 text-xs mt-0.5">Fees/yr</p>
+                  </div>
+                </div>
+              )}
+
+              <div
+                className={`overflow-hidden transition-all duration-300 ${hovered && data?.topRecruiters ? 'max-h-24 opacity-100 mb-3' : 'max-h-0 opacity-0 mb-0'}`}
+              >
+                <p className="text-xs text-gray-400 mb-2 font-medium">Top Recruiters</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {data?.topRecruiters?.map((r) => (
+                    <span key={r} className="text-xs bg-[#1B1F3B]/5 text-[#1B1F3B] px-2.5 py-1 rounded-full font-medium">
+                      {r}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setFlipped(true)}
+                className="text-left text-[#C9A84C] font-semibold text-sm hover:underline underline-offset-4 mb-3 w-fit"
+              >
+                Flip for more →
+              </button>
+
+              <div className="mt-auto flex items-center justify-between pt-3 border-t border-gray-100">
+                <button
+                  type="button"
+                  onClick={() => onApply?.(prog.name)}
+                  className="text-[#C9A84C] font-semibold text-sm hover:underline underline-offset-4"
+                >
+                  Apply Now →
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); onCompare(prog); }}
+                  disabled={!isSelected && !canAdd}
+                  className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full transition-all duration-200
+                    ${isSelected
+                      ? 'bg-[#C9A84C] text-[#1B1F3B]'
+                      : canAdd
+                        ? 'border border-gray-300 text-gray-500 hover:border-[#C9A84C] hover:text-[#C9A84C] cursor-pointer'
+                        : 'border border-gray-200 text-gray-300 cursor-not-allowed'
+                    }`}
+                >
+                  {isSelected ? <><Check size={11} /> Added</> : <><Plus size={11} /> Compare</>}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Back */}
+          <div className="backface-hidden absolute inset-0 min-h-[520px] rounded-2xl bg-[#0D1B2A] border border-[rgba(201,168,76,0.4)] flex flex-col p-5 [transform:rotateY(180deg)]">
+            <h4 className="font-['Playfair_Display',serif] text-[#C9A84C] text-lg font-bold mb-2">Why Choose This?</h4>
+            {back && (
+              <>
+                <p className="text-white/80 text-xs leading-relaxed mb-1">{back.pitch[0]}</p>
+                <p className="text-white/80 text-xs leading-relaxed mb-3">{back.pitch[1]}</p>
+
+                <div className="flex gap-4 items-center mb-4">
+                  <div
+                    className="relative w-20 h-20 rounded-full shrink-0 flex items-center justify-center"
+                    style={{
+                      background: `conic-gradient(#C9A84C ${pct}%, rgba(255,255,255,0.12) 0)`,
+                    }}
+                  >
+                    <div className="absolute inset-1.5 rounded-full bg-[#0D1B2A] flex items-center justify-center">
+                      <span className="text-[#C9A84C] text-xs font-black">{pct}%</span>
+                    </div>
+                  </div>
+                  <p className="text-white/50 text-[11px] leading-snug">Placement outcomes for this cohort (representative).</p>
+                </div>
+
+                <div className="space-y-2 mb-4 flex-1 min-h-0 overflow-y-auto [scrollbar-width:thin]">
+                  {back.companies.map((c) => (
+                    <BackCompanyRow key={c.name} name={c.name} domain={c.domain} blurb={c.blurb} />
+                  ))}
+                </div>
+              </>
+            )}
+
+            <button
+              type="button"
+              onClick={() => onApply?.(prog.name)}
+              className="w-full bg-[#C9A84C] text-[#0D1B2A] font-bold text-sm py-2.5 rounded-xl hover:brightness-110 transition-all mb-2"
+            >
+              Apply Now →
+            </button>
+            <button
+              type="button"
+              onClick={() => setFlipped(false)}
+              className="text-white/45 text-xs hover:text-white text-left w-fit"
+            >
+              ← Flip Back
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -343,7 +531,7 @@ function ProgramCard({ prog, isSelected, onCompare, canAdd }) {
 }
 
 /* ─── Main Component ─── */
-export default function Programs() {
+export default function Programs({ onApply }) {
   const [activeTab, setActiveTab] = useState('All');
   const [compareList, setCompareList] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
@@ -393,11 +581,10 @@ export default function Programs() {
               <button
                 key={cat}
                 onClick={() => setActiveTab(cat)}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ${
-                  activeTab === cat
+                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ${activeTab === cat
                     ? 'bg-[#1B1F3B] text-white shadow-md'
                     : 'border border-gray-200 text-gray-600 bg-white hover:border-[#C9A84C] hover:text-[#C9A84C]'
-                }`}
+                  }`}
               >
                 {cat}
               </button>
@@ -422,26 +609,18 @@ export default function Programs() {
                   isSelected={!!compareList.find((p) => p.name === prog.name)}
                   onCompare={toggleCompare}
                   canAdd={compareList.length < 3}
+                  onApply={onApply}
                 />
               </div>
             ))}
           </div>
 
-          {/* Hiring Partners Strip */}
+          {/* Hiring Partners — marquee + Clearbit logos */}
           <div className="fade-up" style={{ transitionDelay: '0.35s' }}>
             <p className="text-center text-xs text-gray-400 font-semibold uppercase tracking-widest mb-5">
               500+ Hiring Partners include
             </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              {HIRING_PARTNERS.map((company) => (
-                <span
-                  key={company}
-                  className="text-sm text-gray-600 font-semibold bg-white border border-gray-200 px-4 py-2 rounded-full hover:border-[#C9A84C] hover:text-[#C9A84C] transition-colors duration-200"
-                >
-                  {company}
-                </span>
-              ))}
-            </div>
+            <HiringMarquee />
           </div>
         </div>
       </section>
@@ -459,6 +638,7 @@ export default function Programs() {
         <CompareModal
           selected={compareList}
           onClose={() => setModalOpen(false)}
+          onApplyProgram={(name) => onApply?.(name)}
         />
       )}
     </>

@@ -133,3 +133,70 @@
   animation: blink 1s step-end infinite;
   color: #C9A84C;
 }
+
+/* Application modal enter */
+@keyframes modal-scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.animate-modal-in {
+  animation: modal-scale-in 0.3s ease forwards;
+}
+
+/* Gold checkmark stroke */
+@keyframes check-draw {
+  to { stroke-dashoffset: 0; }
+}
+.check-stroke-anim {
+  stroke-dasharray: 32;
+  stroke-dashoffset: 32;
+  animation: check-draw 0.8s ease forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .check-stroke-anim { stroke-dashoffset: 0; animation: none; }
+}
+
+/* Modal confetti */
+@keyframes confetti-fall {
+  0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) translateX(var(--cx, 20px)) rotate(720deg); opacity: 0; }
+}
+.confetti-bit {
+  position: absolute;
+  top: -8px;
+  width: 8px;
+  height: 12px;
+  border-radius: 2px;
+  background: var(--cb, #C9A84C);
+  animation: confetti-fall var(--cd, 1.4s) ease-in forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .confetti-bit { animation: none; opacity: 0; }
+}
+
+/* Hiring partners marquee */
+@keyframes hiring-marquee {
+  to { transform: translateX(-50%); }
+}
+.hiring-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 0.75rem;
+  padding-right: 0.75rem;
+  animation: hiring-marquee 35s linear infinite;
+}
+.hiring-marquee-wrap:hover .hiring-marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hiring-marquee-track { animation: none; transform: translateX(0); }
+}
+
+/* 3D program card */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}

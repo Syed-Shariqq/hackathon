@@ -10,7 +10,7 @@ const navLinks = [
   { label: 'Contact', href: '#footer' },
 ];
 
-export default function Navbar() {
+export default function Navbar({ onApply }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
@@ -109,13 +109,13 @@ export default function Navbar() {
               </li>
             ))}
             <li>
-              <a
-                href="#cta"
-                onClick={() => setMenuOpen(false)}
-                className="inline-flex items-center bg-[#C9A84C] text-[#1B1F3B] font-bold px-5 py-2 rounded-full text-sm mt-2"
+              <button
+                type="button"
+                onClick={() => { setMenuOpen(false); onApply?.(); }}
+                className="inline-flex items-center bg-[#C9A84C] text-[#1B1F3B] font-bold px-5 py-2 rounded-full text-sm mt-2 cursor-pointer"
               >
                 Apply Now
-              </a>
+              </button>
             </li>
           </ul>
         </div>

@@ -10,7 +10,7 @@ const floatingStats = [
   { label: 'Global Ranks', value: '#4 India' },
 ];
 
-export default function Hero() {
+export default function Hero({ onApply }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [typingIndex, setTypingIndex] = useState(0);
   const [displayed, setDisplayed] = useState('');
@@ -108,13 +108,14 @@ export default function Hero() {
 
         {/* CTAs */}
         <div className="flex flex-wrap items-center justify-center gap-4 mb-14">
-          <a
-            href="#cta"
-            className="group flex items-center gap-2 bg-[#C9A84C] text-[#1B1F3B] font-bold px-8 py-3.5 rounded-full hover:scale-105 transition-all duration-300 glow-gold shadow-lg"
+          <button
+            type="button"
+            onClick={() => onApply?.()}
+            className="group flex items-center gap-2 bg-[#C9A84C] text-[#1B1F3B] font-bold px-8 py-3.5 rounded-full hover:scale-105 transition-all duration-300 glow-gold shadow-lg cursor-pointer"
           >
             Get Admitted in 3 Steps
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
-          </a>
+          </button>
           <a
             href="#testimonials"
             className="group flex items-center gap-2 border-2 border-white/30 text-white px-8 py-3.5 rounded-full hover:border-[#C9A84C] hover:text-[#C9A84C] transition-all duration-300 backdrop-blur-sm font-semibold"

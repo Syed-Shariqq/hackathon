@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import StatsBar from './components/StatsBar';
@@ -10,6 +10,7 @@ import Testimonials from './components/Testimonials';
 import NewsEvents from './components/NewsEvents';
 import CTABanner from './components/CTABanner';
 import Footer from './components/Footer';
+import ApplicationModal from './components/ApplicationModal';
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -37,20 +38,32 @@ class ErrorBoundary extends Component {
 }
 
 export default function App() {
+  const [applyOpen, setApplyOpen] = useState(false);
+  const [applyCourse, setApplyCourse] = useState(null);
+
+  const openApply = (course) => {
+    setApplyCourse(course ?? null);
+    setApplyOpen(true);
+  };
+  const closeApply = () => setApplyOpen(false);
+
   return (
     <ErrorBoundary>
       <div className="font-[Plus_Jakarta_Sans]">
-        <Navbar />
-        <Hero />
+        <Navbar onApply={() => openApply(null)} />
+        <Hero onApply={() => openApply(null)} />
         <StatsBar />
         <About />
-        <Programs />
+        <Programs onApply={openApply} />
         <WhyUs />
         <CampusLife />
         <Testimonials />
         <NewsEvents />
-        <CTABanner />
+        <CTABanner onApply={() => openApply(null)} />
         <Footer />
+        {applyOpen && (
+          <ApplicationModal course={applyCourse} onClose={closeApply} />
+        )}
       </div>
     </ErrorBoundary>
   );
