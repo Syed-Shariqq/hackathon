@@ -32,18 +32,18 @@ function MarqueeLogoCard({ name, domain, isro }) {
       w-[140px] h-[90px]
       rounded-2xl
       border border-white/10
-      bg-gradient-to-b from-white/[0.07] to-white/[0.03]
+      bg-linear-to-b from-white/[0.07] to-white/3
       backdrop-blur-md
-      transition-all duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)]
+      transition-all duration-280ms ease-[cubic-bezier(0.22,1,0.36,1)]
       group-hover:-translate-y-1
       group-hover:scale-[1.04]
       group-hover:border-[#C9A84C]/60
       group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.08),0_0_20px_rgba(201,168,76,0.15)]
-      group-hover:bg-gradient-to-b group-hover:from-[#C9A84C]/[0.08] group-hover:to-[#C9A84C]/[0.02]
+      group-hover:bg-linear-to-b group-hover:from-[#C9A84C]/0.08 group-hover:to-[#C9A84C]/0.02
     ">
 
       {/* logo */}
-      <div className="h-12 flex items-center justify-center w-full mb-1 transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105">
+      <div className="h-12 flex items-center justify-center w-full mb-1 transition-transform duration-280ms ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105">
         {isro ? (
           <span className="text-xs font-bold text-white bg-[#FF6B00] px-2 py-1 rounded-md">
             ISRO
@@ -63,7 +63,7 @@ function MarqueeLogoCard({ name, domain, isro }) {
       </div>
 
       {/* name */}
-      <span className="text-xs text-black/70 text-center font-medium transition-colors duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-[#1B1F3B] group-hover:font-semibold">
+      <span className="text-xs text-black/70 text-center font-medium transition-colors duration-280ms ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-[#1B1F3B] group-hover:font-semibold">
         {name}
       </span>
 
@@ -75,7 +75,7 @@ function HiringGrid() {
   const track = [...HIRING_LOGOS, ...HIRING_LOGOS];
 
   return (
-    <div className="relative py-12 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+    <div className="relative py-12 overflow-hidden mask-[linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
 
       <div className="flex flex-col gap-6 w-full relative z-10">
         {/* Top row: Left to Right */}
