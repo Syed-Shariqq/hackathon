@@ -25,42 +25,98 @@ const HIRING_LOGOS = [
 
 function MarqueeLogoCard({ name, domain, isro }) {
   const [imgHidden, setImgHidden] = useState(false);
-  if (isro) {
-    return (
-      <div className="flex flex-col items-center justify-center shrink-0 w-[100px] h-[70px] rounded-xl border border-[rgba(201,168,76,0.25)] bg-[rgba(27,31,59,0.04)] backdrop-blur-sm px-2 py-1 transition-all duration-300 hover:scale-[1.08] hover:border-[#C9A84C] hover:shadow-[0_0_16px_rgba(201,168,76,0.35)]">
-        <span className="text-[10px] font-bold text-white bg-[#FF6B00] px-2 py-1 rounded-md leading-none">ISRO</span>
-        <span className="text-[10px] text-gray-500 mt-1.5 text-center leading-tight font-medium">{name}</span>
-      </div>
-    );
-  }
+
   return (
-    <div className="flex flex-col items-center justify-center shrink-0 w-[100px] h-[70px] rounded-xl border border-[rgba(201,168,76,0.25)] bg-[rgba(27,31,59,0.04)] backdrop-blur-sm px-2 py-1 transition-all duration-300 hover:scale-[1.08] hover:border-[#C9A84C] hover:shadow-[0_0_16px_rgba(201,168,76,0.35)]">
-      <div className="h-10 flex items-center justify-center w-full">
-        {!imgHidden ? (
+    <div className="
+      flex flex-col items-center justify-center
+      w-[140px] h-[90px]
+      rounded-2xl
+      border border-white/10
+      bg-gradient-to-b from-white/[0.07] to-white/[0.03]
+      backdrop-blur-md
+      transition-all duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)]
+      group-hover:-translate-y-1
+      group-hover:scale-[1.04]
+      group-hover:border-[#C9A84C]/60
+      group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.08),0_0_20px_rgba(201,168,76,0.15)]
+      group-hover:bg-gradient-to-b group-hover:from-[#C9A84C]/[0.08] group-hover:to-[#C9A84C]/[0.02]
+    ">
+
+      {/* logo */}
+      <div className="h-12 flex items-center justify-center w-full mb-1 transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105">
+        {isro ? (
+          <span className="text-xs font-bold text-white bg-[#FF6B00] px-2 py-1 rounded-md">
+            ISRO
+          </span>
+        ) : !imgHidden ? (
           <img
-            src={`https://logo.clearbit.com/${domain}`}
-            alt=""
-            className="max-h-[40px] max-w-[72px] object-contain"
+            src={`https://www.google.com/s2/favicons?domain=${domain}&sz=128`}
+            alt={name}
+            className="max-h-[48px] max-w-[80px] object-contain"
             onError={() => setImgHidden(true)}
           />
         ) : (
-          <span className="text-[11px] font-black text-[#C9A84C] tracking-tight">{name.replace(/[^A-Z]/gi, '').slice(0, 3) || '—'}</span>
+          <span className="text-sm font-black text-[#C9A84C]">
+            {name.slice(0, 2).toUpperCase()}
+          </span>
         )}
       </div>
-      <span className="text-[10px] text-gray-500 mt-0.5 text-center leading-none font-medium">{name}</span>
+
+      {/* name */}
+      <span className="text-xs text-black/70 text-center font-medium transition-colors duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-[#1B1F3B] group-hover:font-semibold">
+        {name}
+      </span>
+
     </div>
   );
 }
 
-function HiringMarquee() {
+function HiringGrid() {
   const track = [...HIRING_LOGOS, ...HIRING_LOGOS];
+
   return (
-    <div className="hiring-marquee-wrap relative overflow-hidden py-1 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-      <div className="hiring-marquee-track">
-        {track.map((c, i) => (
-          <MarqueeLogoCard key={`${c.name}-${i}`} {...c} />
-        ))}
+    <div className="relative py-12 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+
+      <div className="flex flex-col gap-6 w-full relative z-10">
+        {/* Top row: Left to Right */}
+        <div 
+          className="flex w-max gap-5 pr-5 hover:[animation-play-state:paused]"
+          style={{ animation: 'scroll-lr 80s linear infinite' }}
+        >
+          <style>{`
+            @keyframes scroll-lr {
+              from { transform: translateX(-50%); }
+              to { transform: translateX(0%); }
+            }
+          `}</style>
+          {track.map((c, i) => (
+            <div key={`${c.name}-t-${i}`} className="group shrink-0">
+              <MarqueeLogoCard {...c} />
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom row: Right to Left */}
+        <div 
+          className="flex w-max gap-5 pr-5 hover:[animation-play-state:paused]"
+          style={{ animation: 'scroll-rl 90s linear infinite' }}
+        >
+          <style>{`
+            @keyframes scroll-rl {
+              from { transform: translateX(0%); }
+              to { transform: translateX(-50%); }
+            }
+          `}</style>
+          {[...track].reverse().map((c, i) => (
+            <div key={`${c.name}-b-${i}`} className="group shrink-0">
+              <MarqueeLogoCard {...c} />
+            </div>
+          ))}
+        </div>
       </div>
+
+      {/* soft bottom gradient blur for depth */}
+      <div className="absolute bottom-0 left-0 w-full h-32 pointer-events-none bg-linear-to-t from-[#F9F9FB] to-transparent z-20" />
     </div>
   );
 }
@@ -333,16 +389,19 @@ function ProgramCard({ prog, isSelected, onCompare, canAdd, onApply }) {
   const [hovered, setHovered] = useState(false);
   const [flipped, setFlipped] = useState(false);
   const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
-  const [tiltEase, setTiltEase] = useState(true);
   const wrapRef = useRef(null);
   const Icon = prog.icon;
   const data = PROGRAM_REGISTRY[prog.name];
   const back = PROGRAM_BACK_DETAILS[prog.name];
   const noHoverTilt = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
 
+  const setFlippedAndResetTilt = (next) => {
+    setTilt({ rx: 0, ry: 0 });
+    setFlipped(next);
+  };
+
   const handleMove = (e) => {
     if (flipped || noHoverTilt || !wrapRef.current) return;
-    setTiltEase(false);
     const r = wrapRef.current.getBoundingClientRect();
     const x = e.clientX - r.left;
     const y = e.clientY - r.top;
@@ -353,31 +412,31 @@ function ProgramCard({ prog, isSelected, onCompare, canAdd, onApply }) {
 
   const handleLeave = () => {
     if (flipped || noHoverTilt) return;
-    setTiltEase(true);
     setTilt({ rx: 0, ry: 0 });
   };
 
-  const durClass = flipped ? 'duration-700 ease-in-out' : tiltEase ? 'duration-500 ease-out' : 'duration-0';
-  const innerTransform = flipped ? 'rotateY(180deg)' : `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`;
+  /* Flip uses Y only; tilt applies only when not flipped (avoids transform fight). One transition timing for smooth return. */
+  const innerTransform = flipped
+    ? 'rotateY(180deg)'
+    : `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`;
+
   const pct = back?.placementPct ?? 90;
 
   return (
-    <div
-      className={`rounded-2xl transition-all duration-300 ${isSelected
-          ? 'ring-2 ring-[#C9A84C]'
-          : ''
-        }`}
-    >
+    <div className={`rounded-2xl ${isSelected ? 'ring-2 ring-[#C9A84C]' : ''}`}>
       <div
         ref={wrapRef}
-        className="relative rounded-2xl [perspective:1200px]"
+        className="relative w-full rounded-2xl perspective-distant"
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
       >
-        <div className={`relative preserve-3d min-h-[520px] transition-transform ${durClass}`} style={{ transform: innerTransform }}>
-          {/* Front */}
+        <div
+          className="relative w-full preserve-3d transition-transform duration-300 ease-out"
+          style={{ transform: innerTransform }}
+        >
+          {/* Front — flow height; back absolute inset-0 matches */}
           <div
-            className={`backface-hidden relative min-h-[520px] bg-white rounded-2xl shadow-sm overflow-hidden border ${data?.badge ? 'border-t-4 border-[#C9A84C]' : 'border-gray-100'
+            className={`backface-hidden relative w-full bg-white rounded-2xl shadow-sm overflow-hidden border ${data?.badge ? 'border-t-4 border-[#C9A84C]' : 'border-gray-100'
               }`}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
@@ -388,8 +447,8 @@ function ProgramCard({ prog, isSelected, onCompare, canAdd, onApply }) {
               </div>
             )}
 
-            <div className="p-6 flex flex-col min-h-[520px]">
-              <div className="flex items-center justify-between mb-4">
+            <div className="p-6 flex flex-col">
+              <div className="flex items-center justify-between mb-3">
                 <div className="w-12 h-12 rounded-xl bg-[#C9A84C]/10 flex items-center justify-center">
                   <Icon size={22} className="text-[#C9A84C]" />
                 </div>
@@ -412,10 +471,10 @@ function ProgramCard({ prog, isSelected, onCompare, canAdd, onApply }) {
                   </>
                 )}
               </p>
-              <p className="text-sm text-gray-500 mb-4 leading-relaxed">{prog.description}</p>
+              <p className="text-sm text-gray-500 mb-3 leading-relaxed">{prog.description}</p>
 
               {data && (
-                <div className="flex gap-2 mb-4 p-3 bg-[#F9F9FB] rounded-xl">
+                <div className="flex gap-2 mb-3 p-3 bg-[#F9F9FB] rounded-xl">
                   <div className="text-center flex-1">
                     <p className="text-[#C9A84C] font-black text-sm leading-tight">{data.avgSalary}</p>
                     <p className="text-gray-400 text-xs mt-0.5">Avg. Salary</p>
@@ -434,9 +493,9 @@ function ProgramCard({ prog, isSelected, onCompare, canAdd, onApply }) {
               )}
 
               <div
-                className={`overflow-hidden transition-all duration-300 ${hovered && data?.topRecruiters ? 'max-h-24 opacity-100 mb-3' : 'max-h-0 opacity-0 mb-0'}`}
+                className={`overflow-hidden transition-all duration-300 ${hovered && data?.topRecruiters ? 'max-h-24 opacity-100 mb-2' : 'max-h-0 opacity-0 mb-0'}`}
               >
-                <p className="text-xs text-gray-400 mb-2 font-medium">Top Recruiters</p>
+                <p className="text-xs text-gray-400 mb-1.5 font-medium">Top Recruiters</p>
                 <div className="flex flex-wrap gap-1.5">
                   {data?.topRecruiters?.map((r) => (
                     <span key={r} className="text-xs bg-[#1B1F3B]/5 text-[#1B1F3B] px-2.5 py-1 rounded-full font-medium">
@@ -446,48 +505,49 @@ function ProgramCard({ prog, isSelected, onCompare, canAdd, onApply }) {
                 </div>
               </div>
 
-              <button
-                type="button"
-                onClick={() => setFlipped(true)}
-                className="text-left text-[#C9A84C] font-semibold text-sm hover:underline underline-offset-4 mb-3 w-fit"
-              >
-                Flip for more →
-              </button>
-
-              <div className="mt-auto flex items-center justify-between pt-3 border-t border-gray-100">
+              <div className="mt-auto border-t border-gray-100 pt-4 space-y-3">
                 <button
                   type="button"
-                  onClick={() => onApply?.(prog.name)}
-                  className="text-[#C9A84C] font-semibold text-sm hover:underline underline-offset-4"
+                  onClick={() => setFlippedAndResetTilt(true)}
+                  className="block border-2 w-full bg-gray-100 border-gray-400 px-4 py-2 rounded-full text-center text-xs font-medium text-[#1B1F3B]/90 hover:text-blue-950 hover:underline decoration-[#C9A84C]/40 underline-offset-2 transition-colors"
                 >
-                  Apply Now →
+                  Flip for more +
                 </button>
-                <button
-                  onClick={(e) => { e.stopPropagation(); onCompare(prog); }}
-                  disabled={!isSelected && !canAdd}
-                  className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full transition-all duration-200
+                <div className="flex items-center justify-between gap-2">
+                  <button
+                    type="button"
+                    onClick={() => onApply?.(prog.name)}
+                    className="text-[#C9A84C] font-semibold text-sm hover:underline underline-offset-4 shrink-0"
+                  >
+                    Apply Now →
+                  </button>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onCompare(prog); }}
+                    disabled={!isSelected && !canAdd}
+                    className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full transition-all duration-200 shrink-0
                     ${isSelected
-                      ? 'bg-[#C9A84C] text-[#1B1F3B]'
-                      : canAdd
-                        ? 'border border-gray-300 text-gray-500 hover:border-[#C9A84C] hover:text-[#C9A84C] cursor-pointer'
-                        : 'border border-gray-200 text-gray-300 cursor-not-allowed'
-                    }`}
-                >
-                  {isSelected ? <><Check size={11} /> Added</> : <><Plus size={11} /> Compare</>}
-                </button>
+                        ? 'bg-[#C9A84C] text-[#1B1F3B]'
+                        : canAdd
+                          ? 'border border-gray-300 text-gray-500 hover:border-[#C9A84C] hover:text-[#C9A84C] cursor-pointer'
+                          : 'border border-gray-200 text-gray-300 cursor-not-allowed'
+                      }`}
+                  >
+                    {isSelected ? <><Check size={11} /> Added</> : <><Plus size={11} /> Compare</>}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Back */}
-          <div className="backface-hidden absolute inset-0 min-h-[520px] rounded-2xl bg-[#0D1B2A] border border-[rgba(201,168,76,0.4)] flex flex-col p-5 [transform:rotateY(180deg)]">
+          {/* Back — same box as front */}
+          <div className={`backface-hidden absolute inset-0 w-full rounded-2xl bg-[#0D1B2A] border border-[rgba(201,168,76,0.4)] flex flex-col p-5 transform-[rotateY(180deg)]`}>
             <h4 className="font-['Playfair_Display',serif] text-[#C9A84C] text-lg font-bold mb-2">Why Choose This?</h4>
             {back && (
               <>
                 <p className="text-white/80 text-xs leading-relaxed mb-1">{back.pitch[0]}</p>
                 <p className="text-white/80 text-xs leading-relaxed mb-3">{back.pitch[1]}</p>
 
-                <div className="flex gap-4 items-center mb-4">
+                <div className="flex gap-3 items-center mb-3">
                   <div
                     className="relative w-20 h-20 rounded-full shrink-0 flex items-center justify-center"
                     style={{
@@ -501,7 +561,7 @@ function ProgramCard({ prog, isSelected, onCompare, canAdd, onApply }) {
                   <p className="text-white/50 text-[11px] leading-snug">Placement outcomes for this cohort (representative).</p>
                 </div>
 
-                <div className="space-y-2 mb-4 flex-1 min-h-0 overflow-y-auto [scrollbar-width:thin]">
+                <div className="space-y-2 mb-3 flex-1 min-h-0 overflow-y-auto [scrollbar-width:thin]">
                   {back.companies.map((c) => (
                     <BackCompanyRow key={c.name} name={c.name} domain={c.domain} blurb={c.blurb} />
                   ))}
@@ -518,7 +578,7 @@ function ProgramCard({ prog, isSelected, onCompare, canAdd, onApply }) {
             </button>
             <button
               type="button"
-              onClick={() => setFlipped(false)}
+              onClick={() => setFlippedAndResetTilt(false)}
               className="text-white/45 text-xs hover:text-white text-left w-fit"
             >
               ← Flip Back
@@ -582,8 +642,8 @@ export default function Programs({ onApply }) {
                 key={cat}
                 onClick={() => setActiveTab(cat)}
                 className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ${activeTab === cat
-                    ? 'bg-[#1B1F3B] text-white shadow-md'
-                    : 'border border-gray-200 text-gray-600 bg-white hover:border-[#C9A84C] hover:text-[#C9A84C]'
+                  ? 'bg-[#1B1F3B] text-white shadow-md'
+                  : 'border border-gray-200 text-gray-600 bg-white hover:border-[#C9A84C] hover:text-[#C9A84C]'
                   }`}
               >
                 {cat}
@@ -601,7 +661,7 @@ export default function Programs({ onApply }) {
           )}
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
             {filtered.map((prog, i) => (
               <div key={prog.name} className="fade-up" style={{ transitionDelay: `${0.05 + i * 0.06}s` }}>
                 <ProgramCard
@@ -620,7 +680,7 @@ export default function Programs({ onApply }) {
             <p className="text-center text-xs text-gray-400 font-semibold uppercase tracking-widest mb-5">
               500+ Hiring Partners include
             </p>
-            <HiringMarquee />
+            <HiringGrid />
           </div>
         </div>
       </section>

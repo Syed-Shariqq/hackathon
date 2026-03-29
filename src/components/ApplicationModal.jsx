@@ -164,7 +164,7 @@ Our admissions team will contact you within 48 hours.
 
   return (
     <div
-      className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-black/70 backdrop-blur-[12px] animate-fade-in"
+      className="fixed inset-0 z-1000 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fade-in"
       onClick={handleBackdrop}
       role="dialog"
       aria-modal="true"
@@ -254,7 +254,7 @@ Our admissions team will contact you within 48 hours.
                 <div className="mt-4">
                   <label className="block text-white/55 text-xs font-semibold uppercase tracking-wider mb-1.5">Resume upload *</label>
                   <div className="relative">
-                    <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} required id="resume-upload-modal" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-[1]" />
+                    <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} required id="resume-upload-modal" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-1" />
                     <div className={`min-h-[48px] flex items-center justify-center gap-2 rounded-[10px] border-2 border-dashed px-4 py-3 transition-colors ${formData.resumeName ? 'border-[#C9A84C] bg-[#C9A84C]/10' : 'border-white/25 bg-[#0D1B2A]'}`}>
                       <FileText size={18} className={formData.resumeName ? 'text-[#C9A84C]' : 'text-white/40'} />
                       <span className={`text-sm truncate ${formData.resumeName ? 'text-[#C9A84C] font-medium' : 'text-white/45'}`}>
@@ -266,7 +266,7 @@ Our admissions team will contact you within 48 hours.
               </div>
 
               <div className={step === 3 ? 'block' : 'hidden'}>
-                <div className="rounded-xl border border-white/10 bg-white/[0.05] p-5 space-y-4">
+                <div className="rounded-xl border border-white/10 bg-white/5 p-5 space-y-4">
                   <div className="flex justify-between gap-4 border-b border-white/10 pb-3">
                     <span className="text-white/50 text-sm">Course</span>
                     <strong className="text-white text-sm text-right">{course || 'General Admission'}</strong>
@@ -363,7 +363,7 @@ Our admissions team will contact you within 48 hours.
             )}
 
             {(successPhase === 'draw' || successPhase === 'burst') && (
-              <div className="relative z-[1] mb-6">
+              <div className="relative z-1 mb-6">
                 <svg className="w-24 h-24 text-[#C9A84C]" viewBox="0 0 52 52" fill="none" aria-hidden>
                   <circle cx="26" cy="26" r="24" className="stroke-[#C9A84C]/25" strokeWidth="2" />
                   <path
@@ -379,7 +379,7 @@ Our admissions team will contact you within 48 hours.
             )}
 
             {successPhase === 'done' && (
-              <div className="relative z-[1] text-center max-w-md">
+              <div className="relative z-1 text-center max-w-md">
                 <div className="mb-5 flex justify-center">
                   <svg className="w-16 h-16 text-[#C9A84C]" viewBox="0 0 52 52" fill="none" aria-hidden>
                     <circle cx="26" cy="26" r="24" className="stroke-[#C9A84C]/35" strokeWidth="2" />
@@ -407,7 +407,7 @@ Our admissions team will contact you within 48 hours.
             )}
 
             {successPhase !== 'done' && (
-              <button type="button" onClick={onClose} className="absolute top-4 right-4 z-[2] w-10 h-10 rounded-full bg-white/10 text-white/70 hover:text-white flex items-center justify-center" aria-label="Close">
+              <button type="button" onClick={onClose} className="absolute top-4 right-4 z-2 w-10 h-10 rounded-full bg-white/10 text-white/70 hover:text-white flex items-center justify-center" aria-label="Close">
                 <X size={20} />
               </button>
             )}

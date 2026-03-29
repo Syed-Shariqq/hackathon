@@ -7,8 +7,9 @@
   opacity: 0;
   transform: translateY(2rem);
   transition: opacity 0.65s cubic-bezier(0.23, 1, 0.32, 1),
-              transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+    transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
 }
+
 .fade-up.visible {
   opacity: 1;
   transform: translateY(0);
@@ -18,25 +19,39 @@
    Hero bounce arrow
 ───────────────────────────────────────────── */
 @keyframes bounce-slow {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(10px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
 }
-.animate-bounce-slow { animation: bounce-slow 1.5s ease-in-out infinite; }
+
+.animate-bounce-slow {
+  animation: bounce-slow 1.5s ease-in-out infinite;
+}
 
 /* ─────────────────────────────────────────────
    Gold shimmer sweep (for stat numbers)
 ───────────────────────────────────────────── */
 @keyframes shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position:  200% center; }
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
+
 .shimmer-gold {
-  background: linear-gradient(
-    90deg,
-    #C9A84C 25%,
-    #f0d080 50%,
-    #C9A84C 75%
-  );
+  background: linear-gradient(90deg,
+      #C9A84C 25%,
+      #f0d080 50%,
+      #C9A84C 75%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -48,19 +63,39 @@
    Floating element for hero card
 ───────────────────────────────────────────── */
 @keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(-1deg); }
-  50%       { transform: translateY(-12px) rotate(1deg); }
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(-1deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(1deg);
+  }
 }
-.animate-float { animation: float 5s ease-in-out infinite; }
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
 
 /* ─────────────────────────────────────────────
    Glow pulse on CTA buttons
 ───────────────────────────────────────────── */
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.5); }
-  50%       { box-shadow: 0 0 24px 8px rgba(201,168,76,0.25); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.5);
+  }
+
+  50% {
+    box-shadow: 0 0 24px 8px rgba(201, 168, 76, 0.25);
+  }
 }
-.glow-gold { animation: glow-pulse 2.5s ease-in-out infinite; }
+
+.glow-gold {
+  animation: glow-pulse 2.5s ease-in-out infinite;
+}
 
 /* ─────────────────────────────────────────────
    Glassmorphism utility
@@ -99,34 +134,60 @@
    Card glow on hover
 ───────────────────────────────────────────── */
 .card-glow:hover {
-  box-shadow: 0 0 0 2px rgba(201,168,76,0.4), 0 20px 40px rgba(0,0,0,0.12);
+  box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.4), 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
 /* ─────────────────────────────────────────────
    Compare tray slide-up
 ───────────────────────────────────────────── */
 @keyframes slide-up-tray {
-  from { transform: translateY(100%); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
-.animate-slide-up { animation: slide-up-tray 0.35s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+
+.animate-slide-up {
+  animation: slide-up-tray 0.35s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
 
 /* ─────────────────────────────────────────────
    Modal backdrop fade
 ───────────────────────────────────────────── */
 @keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
-.animate-fade-in { animation: fade-in 0.25s ease forwards; }
+
+.animate-fade-in {
+  animation: fade-in 0.25s ease forwards;
+}
 
 /* ─────────────────────────────────────────────
    Typing cursor blink
 ───────────────────────────────────────────── */
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
+
 .cursor-blink::after {
   content: '|';
   margin-left: 2px;
@@ -136,31 +197,54 @@
 
 /* Application modal enter */
 @keyframes modal-scale-in {
-  from { opacity: 0; transform: scale(0.95); }
-  to   { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
+
 .animate-modal-in {
   animation: modal-scale-in 0.3s ease forwards;
 }
 
 /* Gold checkmark stroke */
 @keyframes check-draw {
-  to { stroke-dashoffset: 0; }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
+
 .check-stroke-anim {
   stroke-dasharray: 32;
   stroke-dashoffset: 32;
   animation: check-draw 0.8s ease forwards;
 }
+
 @media (prefers-reduced-motion: reduce) {
-  .check-stroke-anim { stroke-dashoffset: 0; animation: none; }
+  .check-stroke-anim {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
 }
 
 /* Modal confetti */
 @keyframes confetti-fall {
-  0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) translateX(var(--cx, 20px)) rotate(720deg); opacity: 0; }
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(100vh) translateX(var(--cx, 20px)) rotate(720deg);
+    opacity: 0;
+  }
 }
+
 .confetti-bit {
   position: absolute;
   top: -8px;
@@ -170,14 +254,50 @@
   background: var(--cb, #C9A84C);
   animation: confetti-fall var(--cd, 1.4s) ease-in forwards;
 }
+
 @media (prefers-reduced-motion: reduce) {
-  .confetti-bit { animation: none; opacity: 0; }
+  .confetti-bit {
+    animation: none;
+    opacity: 0;
+  }
 }
 
 /* Hiring partners marquee */
 @keyframes hiring-marquee {
-  to { transform: translateX(-50%); }
+  to {
+    transform: translateX(-50%);
+  }
 }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes moveRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes moveLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
 .hiring-marquee-track {
   display: flex;
   width: max-content;
@@ -185,18 +305,25 @@
   padding-right: 0.75rem;
   animation: hiring-marquee 35s linear infinite;
 }
+
 .hiring-marquee-wrap:hover .hiring-marquee-track {
   animation-play-state: paused;
 }
+
 @media (prefers-reduced-motion: reduce) {
-  .hiring-marquee-track { animation: none; transform: translateX(0); }
+  .hiring-marquee-track {
+    animation: none;
+    transform: translateX(0);
+  }
 }
 
 /* 3D program card */
 .preserve-3d {
   transform-style: preserve-3d;
 }
+
 .backface-hidden {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
+
