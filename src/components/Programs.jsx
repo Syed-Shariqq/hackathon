@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   BookOpen, BarChart2, FlaskConical, BookText, Scale, Microscope,
+  Zap, Building2, Wallet, Database,
   Plus, Check, Star, Clock, Users, X, TrendingUp, DollarSign, Award, GitCompare, Trash2,
 } from 'lucide-react';
 import { PROGRAM_REGISTRY, PROGRAM_BACK_DETAILS } from './ComparePrograms';
@@ -170,12 +172,96 @@ const COMPARE_ROWS = [
 ];
 
 const programs = [
-  { icon: BookOpen, name: 'B.Tech Computer Science', duration: '4 Years', description: 'Master algorithms, AI, and systems design', category: 'Engineering', rating: 4.9 },
-  { icon: BarChart2, name: 'MBA Business Analytics', duration: '2 Years', description: 'Data-driven leadership for modern business', category: 'Management', rating: 4.8 },
-  { icon: FlaskConical, name: 'B.Sc Biotechnology', duration: '3 Years', description: 'Explore life sciences and biomedical research', category: 'Sciences', rating: 4.6 },
-  { icon: BookText, name: 'BA English Literature', duration: '3 Years', description: 'Develop critical thinking through great writing', category: 'Arts', rating: 4.4 },
-  { icon: Scale, name: 'LLB Corporate Law', duration: '5 Years', description: 'Shape policy and lead legal innovation', category: 'Law', rating: 4.7 },
-  { icon: Microscope, name: 'Ph.D Research Programs', duration: '3-5 Years', description: 'Push boundaries with funded doctoral research', category: 'Sciences', rating: 4.9 },
+  {
+    icon: BookOpen,
+    name: 'B.Tech Computer Science',
+    duration: '4 Years',
+    description: 'Master algorithms, AI, and systems design',
+    category: 'Engineering',
+    rating: 4.9,
+    departmentSlug: 'computer-science',
+  },
+  {
+    icon: BarChart2,
+    name: 'MBA Business Analytics',
+    duration: '2 Years',
+    description: 'Data-driven leadership for modern business',
+    category: 'Management',
+    rating: 4.8,
+    departmentSlug: 'business-analytics',
+  },
+  {
+    icon: FlaskConical,
+    name: 'B.Sc Biotechnology',
+    duration: '3 Years',
+    description: 'Explore life sciences and biomedical research',
+    category: 'Sciences',
+    rating: 4.6,
+    departmentSlug: 'biotechnology',
+  },
+  {
+    icon: BookText,
+    name: 'BA English Literature',
+    duration: '3 Years',
+    description: 'Develop critical thinking through great writing',
+    category: 'Arts',
+    rating: 4.4,
+    departmentSlug: 'english-literature',
+  },
+  {
+    icon: Scale,
+    name: 'LLB Corporate Law',
+    duration: '5 Years',
+    description: 'Shape policy and lead legal innovation',
+    category: 'Law',
+    rating: 4.7,
+    departmentSlug: 'corporate-law',
+  },
+  {
+    icon: Microscope,
+    name: 'Ph.D Research Programs',
+    duration: '3-5 Years',
+    description: 'Push boundaries with funded doctoral research',
+    category: 'Sciences',
+    rating: 4.9,
+    departmentSlug: 'research',
+  },
+  {
+    icon: Zap,
+    name: 'B.Tech Electrical Engineering',
+    duration: '4 Years',
+    description: 'Power systems, control, and renewable integration engineering',
+    category: 'Engineering',
+    rating: 4.5,
+    departmentSlug: 'electrical-engineering',
+  },
+  {
+    icon: Building2,
+    name: 'B.Tech Civil Engineering',
+    duration: '4 Years',
+    description: 'Design resilient infrastructure with modern construction methods',
+    category: 'Engineering',
+    rating: 4.4,
+    departmentSlug: 'civil-engineering',
+  },
+  {
+    icon: Wallet,
+    name: 'MBA Finance',
+    duration: '2 Years',
+    description: 'Investment strategy, risk management, and financial decision-making',
+    category: 'Management',
+    rating: 4.7,
+    departmentSlug: 'finance',
+  },
+  {
+    icon: Database,
+    name: 'M.Sc Data Science',
+    duration: '2 Years',
+    description: 'Build scalable pipelines for insights, ML, and deployment at scale',
+    category: 'Sciences',
+    rating: 4.6,
+    departmentSlug: 'data-science',
+  },
 ];
 
 /* ─── Compare Tray (bottom bar) ─── */
@@ -385,7 +471,15 @@ function CompareModal({ selected, onClose, onApplyProgram }) {
 }
 
 /* ─── Program Card (3D flip + tilt) ─── */
-function ProgramCard({ prog, isSelected, onCompare, canAdd, onApply }) {
+function ProgramCard({
+  prog,
+  isSelected,
+  onCompare,
+  canAdd,
+  onApply,
+  enableDepartmentNav = false,
+  onNavigateDepartment,
+}) {
   const [hovered, setHovered] = useState(false);
   const [flipped, setFlipped] = useState(false);
   const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
@@ -423,7 +517,18 @@ function ProgramCard({ prog, isSelected, onCompare, canAdd, onApply }) {
   const pct = back?.placementPct ?? 90;
 
   return (
-    <div className={`rounded-2xl ${isSelected ? 'ring-2 ring-[#C9A84C]' : ''}`}>
+    <div
+      className={`rounded-2xl ${isSelected ? 'ring-2 ring-[#C9A84C]' : ''}`}
+      onClick={(e) => {
+        if (!enableDepartmentNav) return;
+        if (!prog?.departmentSlug) return;
+        // Avoid hijacking button/link interactions inside the card.
+        const t = e.target;
+        const closest = t && typeof t.closest === 'function' ? t.closest('button, a, input, textarea, select, label') : null;
+        if (closest) return;
+        onNavigateDepartment?.(prog.departmentSlug);
+      }}
+    >
       <div
         ref={wrapRef}
         className="relative w-full rounded-2xl perspective-distant"
@@ -591,11 +696,16 @@ function ProgramCard({ prog, isSelected, onCompare, canAdd, onApply }) {
 }
 
 /* ─── Main Component ─── */
-export default function Programs({ onApply }) {
+export default function Programs({
+  onApply,
+  showAllPrograms = false,
+  enableDepartmentNav = false,
+}) {
   const [activeTab, setActiveTab] = useState('All');
   const [compareList, setCompareList] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const ref = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -607,7 +717,13 @@ export default function Programs({ onApply }) {
     return () => observer.disconnect();
   }, [activeTab]);
 
-  const filtered = activeTab === 'All' ? programs : programs.filter((p) => p.category === activeTab);
+  const programsToShow = showAllPrograms ? programs : programs.slice(0, 6);
+  const filtered = activeTab === 'All' ? programsToShow : programsToShow.filter((p) => p.category === activeTab);
+
+  const onNavigateDepartment = (slug) => {
+    if (!slug) return;
+    navigate(`/academics/${slug}`);
+  };
 
   const toggleCompare = (prog) => {
     const exists = compareList.find((p) => p.name === prog.name);
@@ -670,6 +786,8 @@ export default function Programs({ onApply }) {
                   onCompare={toggleCompare}
                   canAdd={compareList.length < 3}
                   onApply={onApply}
+                  enableDepartmentNav={enableDepartmentNav}
+                  onNavigateDepartment={onNavigateDepartment}
                 />
               </div>
             ))}

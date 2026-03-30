@@ -1,10 +1,14 @@
-import PlaceholderPage from './PlaceholderPage';
+import Programs from '../components/Programs';
+import { useApplyModal } from '../context/ApplyModalContext';
 
 export default function Academics() {
+  const { openApply } = useApplyModal();
+
   return (
-    <PlaceholderPage
-      title="Academics"
-      description="Program listings, departments, and curriculum — content coming soon."
+    <Programs
+      onApply={openApply}
+      showAllPrograms
+      enableDepartmentNav
     />
   );
 }

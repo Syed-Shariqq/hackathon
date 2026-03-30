@@ -72,6 +72,54 @@ export const PROGRAM_REGISTRY = {
     highlight: '₹120Cr annual research grants',
     badge: '🔬 Fully Funded',
   },
+  'B.Tech Electrical Engineering': {
+    fees: '₹1.9L / year',
+    avgSalary: '₹12 LPA',
+    topRecruiters: ['Siemens', 'ABB', 'Schneider Electric', 'Tata Power'],
+    duration: '4 Years',
+    seats: 90,
+    level: 'UG',
+    outcomes: '88% placed',
+    accreditation: 'NAAC A++',
+    highlight: 'Smart grids & control systems',
+    badge: '⚡ Power & Control Focus',
+  },
+  'B.Tech Civil Engineering': {
+    fees: '₹1.7L / year',
+    avgSalary: '₹11 LPA',
+    topRecruiters: ['Larsen & Toubro', 'AECOM', 'Tata Projects', 'HCC'],
+    duration: '4 Years',
+    seats: 80,
+    level: 'UG',
+    outcomes: '86% placed',
+    accreditation: 'NAAC A++',
+    highlight: 'Resilient infrastructure studio projects',
+    badge: '🏗️ Infrastructure Ready',
+  },
+  'MBA Finance': {
+    fees: '₹2.5L / year',
+    avgSalary: '₹21 LPA',
+    topRecruiters: ['Goldman Sachs', 'Morgan Stanley', 'Deloitte', 'JP Morgan'],
+    duration: '2 Years',
+    seats: 60,
+    level: 'PG',
+    outcomes: '93% placed',
+    accreditation: 'AACSB',
+    highlight: 'Valuation, risk, and investment strategy',
+    badge: '📈 Finance Leadership',
+  },
+  'M.Sc Data Science': {
+    fees: '₹2.0L / year',
+    avgSalary: '₹20 LPA',
+    topRecruiters: ['Google', 'Amazon', 'Microsoft', 'Netflix'],
+    duration: '2 Years',
+    seats: 70,
+    level: 'PG',
+    outcomes: '89% placed',
+    accreditation: 'NAAC A++',
+    highlight: 'MLOps-ready analytics pipelines',
+    badge: '🧠 Applied AI Track',
+  },
 };
 
 /** Back-of-card flip content: placement ring %, pitch lines, hiring logos (Clearbit domain optional) */
@@ -146,6 +194,54 @@ export const PROGRAM_BACK_DETAILS = {
       { name: 'ISRO', domain: null, blurb: 'Funded doctoral research programs' },
       { name: 'Biocon', domain: 'biocon.com', blurb: 'Pharmaceutical R&D fellowships' },
       { name: 'Microsoft', domain: 'microsoft.com', blurb: 'Research internships and grants' },
+    ],
+  },
+  'B.Tech Electrical Engineering': {
+    placementPct: 86,
+    pitch: [
+      'Smart grids, embedded control, and renewable integration engineering.',
+      'Project-based labs to build reliable systems that scale into industry.',
+    ],
+    companies: [
+      { name: 'Siemens', domain: 'siemens.com', blurb: 'Industrial automation and power systems' },
+      { name: 'ABB', domain: 'abb.com', blurb: 'Electrification and control solutions' },
+      { name: 'Schneider Electric', domain: 'schneider-electric.com', blurb: 'Energy management and infrastructure' },
+    ],
+  },
+  'B.Tech Civil Engineering': {
+    placementPct: 84,
+    pitch: [
+      'Resilient infrastructure design with modern construction methodologies.',
+      'Studio-led learning focused on planning, safety, and sustainable materials.',
+    ],
+    companies: [
+      { name: 'Larsen & Toubro', domain: 'larsentoubro.com', blurb: 'Engineering, procurement, and construction' },
+      { name: 'AECOM', domain: 'aecom.com', blurb: 'Architecture and infrastructure advisory' },
+      { name: 'Tata Projects', domain: 'tataprojects.com', blurb: 'Project delivery for energy and buildings' },
+    ],
+  },
+  'MBA Finance': {
+    placementPct: 93,
+    pitch: [
+      'Investment strategy, risk modeling, and decision-ready valuation frameworks.',
+      'Capstones that simulate real markets with responsible financial leadership.',
+    ],
+    companies: [
+      { name: 'Goldman Sachs', domain: 'goldmansachs.com', blurb: 'Investment banking and securities' },
+      { name: 'Morgan Stanley', domain: 'morganstanley.com', blurb: 'Global investment management and advisory' },
+      { name: 'Deloitte', domain: 'deloitte.com', blurb: 'Advisory for finance and risk transformations' },
+    ],
+  },
+  'M.Sc Data Science': {
+    placementPct: 89,
+    pitch: [
+      'Scalable pipelines for insights, ML, and production deployment at scale.',
+      'MLOps-first approach with evaluation, monitoring, and responsible AI practices.',
+    ],
+    companies: [
+      { name: 'Google', domain: 'google.com', blurb: 'AI research, ML platforms, and cloud services' },
+      { name: 'Amazon', domain: 'amazon.com', blurb: 'E-commerce and AWS infrastructure' },
+      { name: 'Microsoft', domain: 'microsoft.com', blurb: 'Cloud analytics and ML deployment tools' },
     ],
   },
 };

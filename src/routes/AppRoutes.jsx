@@ -9,6 +9,7 @@ import Contact from '../pages/Contact';
 import Events from '../pages/Events';
 import Login from '../pages/Login';
 import Dashboard from '../pages/Dashboard';
+import AcademicsDepartment from '../pages/AcademicsDepartment';
 
 export default function AppRoutes() {
   return (
@@ -16,6 +17,7 @@ export default function AppRoutes() {
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/academics" element={<Academics />} />
+        <Route path="/academics/:department" element={<AcademicsDepartment />} />
         <Route path="/admissions" element={<Admissions />} />
         <Route path="/campus" element={<Campus />} />
         <Route path="/research" element={<Research />} />
