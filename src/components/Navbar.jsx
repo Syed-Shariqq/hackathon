@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Flame } from 'lucide-react';
 
 const navLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'Academics', href: '#programs' },
-  { label: 'Admissions', href: '#cta' },
-  { label: 'Campus Life', href: '#campus-life' },
-  { label: 'Research', href: '#why-us' },
-  { label: 'Contact', href: '#footer' },
+  { label: 'Home', to: '/' },
+  { label: 'Academics', to: '/academics' },
+  { label: 'Admissions', to: '/admissions' },
+  { label: 'Campus Life', to: '/campus' },
+  { label: 'Research', to: '/research' },
+  { label: 'Contact', to: '/contact' },
 ];
 
 export default function Navbar({ onApply }) {
+  const { pathname } = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
@@ -41,25 +43,27 @@ export default function Navbar({ onApply }) {
       >
         <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
           {/* Logo */}
-          <a href="#home" className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-[#C9A84C] flex items-center justify-center font-black text-[#1B1F3B] text-lg select-none shadow-sm">
               HU
             </div>
             <span className="font-bold text-[#1B1F3B] text-lg leading-tight hidden sm:block">
               Horizon University
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <ul className="hidden lg:flex items-center gap-7">
             {navLinks.map((link) => (
               <li key={link.label}>
-                <a
-                  href={link.href}
-                  className="text-sm font-medium text-gray-700 hover:text-[#C9A84C] transition-colors duration-200"
+                <Link
+                  to={link.to}
+                  className={`text-sm font-medium transition-colors duration-200 ${
+                    pathname === link.to ? 'text-[#C9A84C]' : 'text-gray-700 hover:text-[#C9A84C]'
+                  }`}
                 >
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -72,12 +76,13 @@ export default function Navbar({ onApply }) {
               Applications Open
               <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] animate-pulse" />
             </div>
-            <a
-              href="#cta"
-              className="bg-[#C9A84C] text-[#1B1F3B] font-bold px-5 py-2 rounded-full hover:scale-105 transition-transform duration-300 text-sm glow-gold shadow-md"
+            <button
+              type="button"
+              onClick={() => onApply?.()}
+              className="bg-[#C9A84C] text-[#1B1F3B] font-bold px-5 py-2 rounded-full hover:scale-105 transition-transform duration-300 text-sm glow-gold shadow-md cursor-pointer"
             >
               Apply Now
-            </a>
+            </button>
           </div>
 
           {/* Mobile hamburger */}
@@ -99,13 +104,15 @@ export default function Navbar({ onApply }) {
           <ul className="flex flex-col px-6 pb-6 pt-2 gap-4">
             {navLinks.map((link) => (
               <li key={link.label}>
-                <a
-                  href={link.href}
+                <Link
+                  to={link.to}
                   onClick={() => setMenuOpen(false)}
-                  className="text-sm font-medium text-gray-700 hover:text-[#C9A84C] transition-colors duration-200 block py-1"
+                  className={`text-sm font-medium transition-colors duration-200 block py-1 ${
+                    pathname === link.to ? 'text-[#C9A84C]' : 'text-gray-700 hover:text-[#C9A84C]'
+                  }`}
                 >
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
             <li>
