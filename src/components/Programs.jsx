@@ -6,6 +6,7 @@ import {
   Plus, Check, Star, Clock, Users, X, TrendingUp, DollarSign, Award, GitCompare, Trash2,
 } from 'lucide-react';
 import { PROGRAM_REGISTRY, PROGRAM_BACK_DETAILS } from './ComparePrograms';
+import { Link } from 'react-router-dom'
 
 /* ─── Static data ─── */
 const categories = ['All', 'Engineering', 'Management', 'Sciences', 'Arts', 'Law'];
@@ -81,7 +82,7 @@ function HiringGrid() {
 
       <div className="flex flex-col gap-6 w-full relative z-10">
         {/* Top row: Left to Right */}
-        <div 
+        <div
           className="flex w-max gap-5 pr-5 hover:[animation-play-state:paused]"
           style={{ animation: 'scroll-lr 80s linear infinite' }}
         >
@@ -99,7 +100,7 @@ function HiringGrid() {
         </div>
 
         {/* Bottom row: Right to Left */}
-        <div 
+        <div
           className="flex w-max gap-5 pr-5 hover:[animation-play-state:paused]"
           style={{ animation: 'scroll-rl 90s linear infinite' }}
         >
@@ -792,6 +793,12 @@ export default function Programs({
               </div>
             ))}
           </div>
+
+          <Link to="/academics#programs">
+            <div className='my-10 w-full text-center'>
+              <button className='px-4 py-2 hover:scale-105 transition-all duration-300 text-sm md:text-md md:px-6 md:py-3 cursor-pointer bg-blue-950 text-white rounded-full'>View More +</button>
+            </div>
+          </Link>
 
           {/* Hiring Partners — marquee + Clearbit logos */}
           <div className="fade-up" style={{ transitionDelay: '0.35s' }}>

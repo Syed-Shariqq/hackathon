@@ -27,8 +27,7 @@ function FacultyCard({ member, index }) {
     .slice(0, 2)
     .toUpperCase();
 
-  const formattedName = member.name.replace(/\s+/g, '+');
-  const avatarUrl = `https://ui-avatars.com/api/?name=${formattedName}&background=0D1B2A&color=C9A84C&size=256`;
+  const avatarUrl = member.imageUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(member.name)}&background=0D1B2A&color=C9A84C&size=256`;
 
   const bio = member.bio || `Dedicated to advancing research in ${member.specialization} and guiding students to achieve both academic and practical excellence.`;
 
@@ -37,7 +36,7 @@ function FacultyCard({ member, index }) {
   return (
     <div className="rounded-3xl border border-[#C9A84C]/30  p-6 md:p-8 shadow-md hover:shadow-xl transition-all duration-300">
       <div className={`flex flex-col md:flex-row items-center gap-8 ${isImageLeft ? '' : 'md:flex-row-reverse'}`}>
-        <div className="w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-2 border-[#C9A84C]/50 bg-[#0D1B2A] flex-shrink-0 flex items-center justify-center shadow-lg">
+        <div className="w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-2 border-[#C9A84C]/50 bg-[#0D1B2A] shrink-0 flex items-center justify-center shadow-lg">
           <img
             src={avatarUrl}
             alt={member.name}
@@ -96,14 +95,13 @@ export default function AcademicsDepartment() {
     );
   }
 
-  const hodFormattedName = dept.hod.name.replace(/\s+/g, '+');
-  const hodAvatarUrl = `https://ui-avatars.com/api/?name=${hodFormattedName}&background=0D1B2A&color=C9A84C&size=256`;
+  const hodAvatarUrl = dept.hod.imageUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(dept.hod.name)}&background=0D1B2A&color=C9A84C&size=256`;
 
   return (
     <main className="bg-[#F9F9FB] min-h-screen pt-28 px-6">
       <div className="max-w-6xl mx-auto">
         {/* A. Hero */}
-        <section className="rounded-3xl border border-[#C9A84C]/25 bg-linear-to-r from-[#C9A84C]/20 via-white/[0.03] to-[#0D1B2A] p-6 md:p-10 shadow-sm">
+        <section className="rounded-3xl border border-[#C9A84C]/25 bg-linear-to-r from-[#C9A84C]/20 via-white/3 to-[#0D1B2A] p-6 md:p-10 shadow-sm">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
             <div className="min-w-0">
               <div className="inline-flex items-center gap-2 mb-3">
@@ -134,7 +132,7 @@ export default function AcademicsDepartment() {
         <section className="mt-10">
           <div className="max-w-5xl mx-auto rounded-3xl border border-[#C9A84C]/25 bg-[#1B1F3B] shadow-sm p-6 md:p-10">
             <div className="flex flex-col md:flex-row md:items-center gap-6">
-              <div className="w-28 h-28 md:w-32 md:h-32 rounded-3xl overflow-hidden border border-[#C9A84C]/30 bg-[#0D1B2A] flex items-center justify-center flex-shrink-0">
+              <div className="w-28 h-28 md:w-32 md:h-32 rounded-3xl overflow-hidden border border-[#C9A84C]/30 bg-[#0D1B2A] flex items-center justify-center shrink-0">
                 <img
                   src={hodAvatarUrl}
                   alt={dept.hod.name}
