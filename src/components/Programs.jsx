@@ -701,6 +701,7 @@ export default function Programs({
   onApply,
   showAllPrograms = false,
   enableDepartmentNav = false,
+  isAcademicsPage = false,
 }) {
   const [activeTab, setActiveTab] = useState('All');
   const [compareList, setCompareList] = useState([]);
@@ -794,17 +795,62 @@ export default function Programs({
             ))}
           </div>
 
-          <Link to="/academics#programs">
-            <div className='my-10 w-full text-center'>
-              <button className='px-4 py-2 hover:scale-105 transition-all duration-300 text-sm md:text-md md:px-6 md:py-3 cursor-pointer bg-blue-950 text-white rounded-full'>View More +</button>
+          {!isAcademicsPage && (
+            <Link to="/academics#programs">
+              <div className='mt-6 mb-8 w-full text-center fade-up'>
+                <button className='px-4 py-2 hover:scale-105 transition-all duration-300 text-sm md:text-md md:px-6 md:py-3 cursor-pointer bg-[#1B1F3B] text-white rounded-full shadow-md font-medium'>
+                  View More +
+                </button>
+              </div>
+            </Link>
+          )}
+
+          {/* Why Our Academics Stand Out (Academics Page Only) */}
+          {isAcademicsPage && (
+            <div className="mt-16 fade-up">
+              <h3 className="text-3xl font-bold text-[#1B1F3B] mb-8 text-center">Why Our Academics Stand Out</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[
+                  { num: '01', title: 'Industry-Aligned Curriculum', desc: 'Designed with real-world industry needs' },
+                  { num: '02', title: 'Experienced Faculty', desc: 'Learn from experts with academic + industry background' },
+                  { num: '03', title: 'Research-Driven Learning', desc: 'Strong focus on innovation and practical exploration' },
+                  { num: '04', title: 'Strong Placement Ecosystem', desc: 'Top recruiters and career support system' }
+                ].map((item, idx) => (
+                  <div key={idx} className="relative bg-white rounded-2xl p-6 border hover:-translate-y-1 border-gray-100 shadow-lg hover:shadow-2xl transition-all overflow-hidden group">
+                    {/* Faint number in background */}
+                    <div className="absolute top-[-10px] left-[-5px] text-[#C9A84C]/15 font-black text-6xl select-none group-hover:scale-110 group-hover:text-[#C9A84C]/20 transition-transform duration-500">
+                      {item.num}
+                    </div>
+                    <div className="relative z-10 pt-8">
+                      <h4 className="font-bold text-[#1B1F3B] text-lg mb-2 leading-tight">{item.title}</h4>
+                      <p className="text-sm text-gray-500 leading-relaxed font-medium">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </Link>
+          )}
+
+          {/* Horizontal Banner (Full Width Breakout) */}
+          {isAcademicsPage && (
+            <div className="w-screen relative left-1/2 right-1/2 -mx-[50vw] bg-[#1B1F3B] py-3.5 shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)] my-16 fade-up">
+              <p className="text-[#C9A84C] font-semibold text-sm tracking-wide text-center px-4">
+                Next Intake: July 2026 &middot; Applications closing May 31
+              </p>
+            </div>
+          )}
 
           {/* Hiring Partners — marquee + Clearbit logos */}
           <div className="fade-up" style={{ transitionDelay: '0.35s' }}>
-            <p className="text-center text-xs text-gray-400 font-semibold uppercase tracking-widest mb-5">
-              500+ Hiring Partners include
-            </p>
+            {isAcademicsPage ? (
+              <h3 className="text-center text-3xl font-bold text-[#1B1F3B] mb-8">
+                Our Graduates Work At
+              </h3>
+            ) : (
+              <p className="text-center text-xs text-gray-400 font-semibold uppercase tracking-widest mb-5">
+                500+ Hiring Partners include
+              </p>
+            )}
             <HiringGrid />
           </div>
         </div>

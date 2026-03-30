@@ -30,7 +30,9 @@ const socials = [
 function useCountdown(targetDate) {
   const calc = () => {
     const diff = targetDate - Date.now();
-    if (diff <= 0) return { d: 0, h: 0, m: 0, s: 0 };
+    if (diff <= 0) {
+      return { expired: true, d: 0, h: 0, m: 0, s: 0 };
+    }
     return {
       d: Math.floor(diff / 86400000),
       h: Math.floor((diff % 86400000) / 3600000),
@@ -63,7 +65,9 @@ export default function Footer() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   // Deadline: May 31, 2025
-  const deadline = useRef(new Date('2025-05-31T23:59:59').getTime()).current;
+  const deadline = useRef(
+    new Date(new Date().getFullYear() + 1, 4, 31, 23, 59, 59).getTime()
+  ).current;
   const { d, h, m, s } = useCountdown(deadline);
 
   const handleSubmit = (e) => {
