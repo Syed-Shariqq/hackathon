@@ -1,22 +1,23 @@
 import { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { Send, MapPin, Phone, Mail, Clock } from 'lucide-react';
 
 const quickLinks = [
-  { label: 'Home', ref: '#home' },
-  { label: 'About', ref: '#about' },
-  { label: 'Admissions', ref: '#cta' },
-  { label: 'Campus Life', ref: '#campus-life' },
-  { label: 'Contact', ref: '#footer' },
+  { label: 'Home', ref: '/' },
+  { label: 'About', ref: '/' },
+  { label: 'Admissions', ref: '/admissions' },
+  { label: 'Campus Life', ref: '/campus' },
+  { label: 'Contact', ref: '/contact' },
 ];
 
 const academics = [
-  { label: 'Engineering', ref: '#programs' },
-  { label: 'Management', ref: '#programs' },
-  { label: 'Sciences', ref: '#programs' },
-  { label: 'Arts & Humanities', ref: '#programs' },
-  { label: 'Law', ref: '#programs' },
-  { label: 'Research', ref: '#programs' },
+  { label: 'Engineering', ref: '/academics' },
+  { label: 'Management', ref: '/academics' },
+  { label: 'Sciences', ref: '/academics' },
+  { label: 'Arts & Humanities', ref: '/academics' },
+  { label: 'Law', ref: '/academics' },
+  { label: 'Research', ref: '/research' },
 ];
 
 const socials = [
@@ -34,6 +35,7 @@ function useCountdown(targetDate) {
       return { expired: true, d: 0, h: 0, m: 0, s: 0 };
     }
     return {
+      expired: false,
       d: Math.floor(diff / 86400000),
       h: Math.floor((diff % 86400000) / 3600000),
       m: Math.floor((diff % 3600000) / 60000),
@@ -64,11 +66,12 @@ function CountdownUnit({ value, label }) {
 export default function Footer() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  // Deadline: May 31, 2025
+  const navigate = useNavigate();
+  // Deadline: Next academic cycle (May 31 of next year)
   const deadline = useRef(
     new Date(new Date().getFullYear() + 1, 4, 31, 23, 59, 59).getTime()
   ).current;
-  const { d, h, m, s } = useCountdown(deadline);
+  const { d, h, m, s, expired } = useCountdown(deadline);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -82,22 +85,30 @@ export default function Footer() {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Left: Countdown */}
           <div className="text-center md:text-left">
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
               <Clock size={14} className="text-[#C9A84C]" />
               <p className="text-[#C9A84C] text-xs font-bold uppercase tracking-widest">
                 Applications Close In
               </p>
             </div>
-            <div className="flex items-end gap-3">
-              <CountdownUnit value={d} label="Days" />
-              <span className="text-[#C9A84C] text-2xl font-black mb-5">:</span>
-              <CountdownUnit value={h} label="Hours" />
-              <span className="text-[#C9A84C] text-2xl font-black mb-5">:</span>
-              <CountdownUnit value={m} label="Min" />
-              <span className="text-[#C9A84C] text-2xl font-black mb-5">:</span>
-              <CountdownUnit value={s} label="Sec" />
-            </div>
-            <p className="text-white/40 text-xs mt-2">2025–26 Admissions · Limited Seats</p>
+            
+            {expired ? (
+              <div className="mt-4 mb-2">
+                <span className="text-[#C9A84C] text-3xl font-black">Admissions Closed</span>
+              </div>
+            ) : (
+              <div className="flex items-end justify-center md:justify-start gap-3 mt-4">
+                <CountdownUnit value={d} label="Days" />
+                <span className="text-[#C9A84C] text-2xl font-black mb-5">:</span>
+                <CountdownUnit value={h} label="Hours" />
+                <span className="text-[#C9A84C] text-2xl font-black mb-5">:</span>
+                <CountdownUnit value={m} label="Min" />
+                <span className="text-[#C9A84C] text-2xl font-black mb-5">:</span>
+                <CountdownUnit value={s} label="Sec" />
+              </div>
+            )}
+            
+            <p className="text-white/40 text-xs mt-4">2026–27 Admissions · Limited Seats</p>
           </div>
 
           {/* Right: Email/Prospectus capture */}
@@ -117,12 +128,12 @@ export default function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="flex-1 bg-white/10 border border-white/20 text-white placeholder-white/30 text-sm px-4 py-3 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors"
+                  className="flex-1 w-full bg-white/10 border border-white/20 text-white placeholder-white/30 text-sm px-4 py-3 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors"
                   required
                 />
                 <button
                   type="submit"
-                  className="bg-[#C9A84C] text-[#1B1F3B] px-5 py-3 rounded-xl font-bold hover:scale-105 transition-transform flex items-center gap-1.5 text-sm glow-gold"
+                  className="bg-[#C9A84C] text-[#1B1F3B] px-5 py-3 rounded-xl font-bold hover:scale-105 transition-transform flex items-center justify-center gap-1.5 text-sm glow-gold shrink-0"
                 >
                   <Send size={14} /> Send
                 </button>
@@ -137,11 +148,11 @@ export default function Footer() {
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-10">
           {/* Col 1 — Brand */}
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-3 mb-2">
+            <div className="flex items-center gap-3 mb-2 cursor-pointer" onClick={() => navigate('/')}>
               <div className="w-10 h-10 rounded-full bg-[#C9A84C] flex items-center justify-center font-black text-[#1B1F3B] text-lg select-none">
                 HU
               </div>
-              <span className="text-white font-bold text-base">Horizon University</span>
+              <span className="text-white font-bold text-base hover:text-[#C9A84C] transition-colors">Horizon University</span>
             </div>
             <p className="text-white/50 text-sm mb-2">Shaping leaders since 1987</p>
             <p className="text-white/30 text-xs leading-relaxed mb-6 max-w-[200px]">
@@ -169,9 +180,9 @@ export default function Footer() {
             <ul className="space-y-1">
               {quickLinks.map(({ label, ref }) => (
                 <li key={label}>
-                  <a href={ref} className="text-white/60 hover:text-[#C9A84C] text-sm transition-colors duration-200 leading-8 block">
+                  <Link to={ref} className="text-white/60 hover:text-[#C9A84C] text-sm transition-colors duration-200 leading-8 block">
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -183,9 +194,9 @@ export default function Footer() {
             <ul className="space-y-1">
               {academics.map(({ label, ref }) => (
                 <li key={label}>
-                  <a href={ref} className="text-white/60 hover:text-[#C9A84C] text-sm transition-colors duration-200 leading-8 block">
+                  <Link to={ref} className="text-white/60 hover:text-[#C9A84C] text-sm transition-colors duration-200 leading-8 block">
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -204,8 +215,10 @@ export default function Footer() {
                 +91 98765 43210
               </li>
               <li className="flex items-center gap-2.5">
-                <Mail size={14} className="text-[#C9A84C] shrink-0" />
-                info@horizonuniversity.edu
+                <Link to="/contact" className="hover:text-[#C9A84C] transition-colors flex items-center gap-2.5">
+                  <Mail size={14} className="text-[#C9A84C] shrink-0" />
+                  info@horizonuniversity.edu
+                </Link>
               </li>
             </ul>
           </div>
@@ -213,13 +226,13 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="max-w-6xl mx-auto mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-2 text-white/30 text-xs">
-          <p>© 2025 Horizon University. All rights reserved.</p>
+          <p>© 2026 Horizon University. All rights reserved.</p>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-white/60 transition-colors">Privacy Policy</a>
+            <span className="hover:text-white/60 transition-colors cursor-pointer">Privacy Policy</span>
             <span>·</span>
-            <a href="#" className="hover:text-white/60 transition-colors">Terms of Use</a>
+            <span className="hover:text-white/60 transition-colors cursor-pointer">Terms of Use</span>
             <span>·</span>
-            <a href="#" className="hover:text-white/60 transition-colors">NAAC Certificate</a>
+            <span className="hover:text-white/60 transition-colors cursor-pointer">NAAC Certificate</span>
           </div>
         </div>
       </div>
