@@ -1,16 +1,78 @@
-# React + Vite
+# 🎓 Horizon University
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> A modern, fully responsive multi-page web application designed to simulate a real-world university platform with a premium UI/UX.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
 
-## React Compiler
+Check out the live deployment: **[Horizon University](https://enchanting-paletas-8bdf91.netlify.app/)**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Key Features
 
-## Expanding the ESLint configuration
+- **Fully Responsive Design**: Optimized for seamless viewing across mobile, tablet, and desktop devices.
+- **Dynamic Routing**: Smooth multi-page navigation powered by React Router.
+- **Comprehensive Academics System**: Detailed program cards and department-level navigation pages.
+- **Interactive Program Comparison**: Side-by-side evaluation of academic offerings.
+- **Structured Admissions Flow**: Clear, step-by-step guidance and document checklists for prospective students.
+- **Deadline Management**: Built-in countdown timer for application deadlines.
+- **Campus Experience**: Interactive Google Maps integration and infrastructure highlights.
+- **Research Hub**: Structured data presentation for university research initiatives and publications.
+- **Direct Engagement**: Functional contact form with integrated email links.
+- **Premium UI/UX**: Professional color palette, hover effects, and cohesive micro-interactions.
+- **Modular Architecture**: Built with clean, reusable, and maintainable React components.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+- **Frontend Framework**: React.js
+- **Styling**: Tailwind CSS
+- **Routing**: React Router
+- **Language**: JavaScript (ES6+)
+
+## 📂 Project Structure
+
+```text
+src/
+├── assets/         # Images, icons, and global style configurations
+├── components/     # Reusable UI components (Navbar, Footer, ProgramCards)
+├── context/        # React Context for global state management
+├── layouts/        # Page layout wrappers (e.g., MainLayout)
+├── pages/          # Individual route components (Home, Academics, Admissions, etc.)
+└── App.jsx         # Main application entry point and routing config
+```
+
+## ⚙️ Installation & Setup
+
+To get this project running on your local machine, follow these steps:
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   ```
+
+2. **Navigate to the project directory**
+   ```bash
+   cd CollegeWebsite
+   ```
+
+3. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+4. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+## 🔮 Future Improvements
+
+- [ ] Backend integration for dynamic content management.
+- [ ] User authentication system for student and faculty portals.
+- [ ] Database support for application tracking and course registration.
+- [ ] Real-time features (chat support, live announcements).
+
+## 👤 Author
+
+**[Syed Shariff]**
+- GitHub: [@Syed-Shariqq](https://github.com/Syed-Shariqq)
